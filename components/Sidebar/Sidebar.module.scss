@@ -1,0 +1,33 @@
+.container {
+  position: absolute;
+  width: 301px;
+  height: 100%;
+  left: 0;
+  top: 0;
+
+  background-color: #0b0f13;
+  .logo {
+    width: 107px;
+    height: 67px;
+
+    margin-top: 97px;
+    margin-left: 47px;
+    margin-bottom: 39px;
+
+    background-size: cover;
+    background-position: center;
+    background: url('./logo.svg');
+  }
+  .select_group {
+    margin-left: 31px;
+    & > * {
+      width: 244px;
+      height: 51px;
+    }
+    .learning {
+      margin-bottom: 25px;
+    }
+    .review {
+    }
+  }
+}
