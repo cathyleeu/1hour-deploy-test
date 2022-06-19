@@ -10,10 +10,10 @@ interface Category {
 }
 export default function Sidebar({}) {
   const categories: Category[] = [
-    { name: '서버/백엔드', params: 'backend' },
     { name: '프론트엔드', params: 'frontend' },
-    { name: 'Android', params: 'Android' },
-    { name: 'iOS', params: 'ios' },
+    { name: '서버/백엔드', params: 'backend' },
+    { name: 'Mobile', params: 'mobile' },
+    { name: 'Data Science', params: 'datascience' },
     { name: '데브옵스', params: 'devops' },
   ]
 

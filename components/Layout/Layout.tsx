@@ -12,7 +12,7 @@ export default function Layout({ children }: Props) {
       {/* MAIN : pages */}
       <div className="flex flex-col items-center bg-grey-light mt-24 mx-20 ">
         {/* <Navbar /> */}
-        <main className="">{children}</main>
+        {children}
       </div>
     </div>
   )
