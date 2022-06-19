@@ -14,7 +14,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <CssBaseline />
       <Layout>
-        <h1>CONTENTS SECTION</h1>
         <Component {...pageProps} />
       </Layout>
     </>
