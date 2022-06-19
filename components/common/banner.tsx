@@ -1,19 +1,12 @@
-import { ConstructionOutlined } from '@mui/icons-material';
 import Image from 'next/image';
-
-interface Props {
-  label?: string;
-  title: string;
-  desc: string;
-  img: string;
-}
+import { memo } from 'react';
 
 export const MainBanner = () => {
   return (
     <div
       className="
-        w-full h-screen
-        min-w-[750px] max-h-[425px]
+        w-screen h-screen
+        max-w-[945px] max-h-[425px]
         flex flex-col md:flex-row 
         bg-primary  rounded-[25px]
         px-10 py-4
@@ -44,30 +37,10 @@ export const MainBanner = () => {
         </p>
       </div>
       <div className="relative w-1/2 h-full">
-        <Image src={'/assets/images/banner/main.png'} layout="fill" objectFit="contain" priority />
+        <Image src={'/assets/images/banner/main.png'} layout="fill" objectFit="contain" priority alt="banner" />
       </div>
     </div>
   );
 };
 
-export default function Banner({ label, title, desc, img }: Props) {
-  return (
-    <div
-      className="
-      w-full flex flex-col md:flex-row content-center
-      bg-gray rounded-[25px]
-      sm:max-h-[254px] max-w-[945px]
-      px-10 py-4
-    "
-    >
-      <div className="max-w-[500px]">
-        {label ? <p>{label}</p> : null}
-        <h1 className="text-white font-black text-5xl mt-8 my-4">{title}</h1>
-        <p className="text-white">{desc}</p>
-      </div>
-      <div className="-ml-2 relative w-[378px] h-[232px]">
-        <Image src={img} layout="fill" objectFit="contain" priority />
-      </div>
-    </div>
-  );
-}
+export default memo(MainBanner);

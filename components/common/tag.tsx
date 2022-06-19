@@ -1,12 +1,24 @@
 import { memo } from 'react';
 
-interface Props {
+type Props = {
+  id: string;
+  isChecked: boolean;
   content: string;
-}
+  isNotTag?: boolean;
+  onClickTag: (tag: string) => void;
+};
 
-const Tag = ({ content }: Props) => {
+const Tag = ({ id, content, isChecked, isNotTag = false, onClickTag }: Props) => {
   return (
-    <div className="text-blue px-[9px] py-[6px] w-fit border border-blue rounded-[12px] font-poppins text-[10px] whitespace-nowrap">{`#${content}`}</div>
+    <div
+      onClick={() => onClickTag(id)}
+      className={`cursor-pointer text-[16px] px-[16px] h-[47px] items-center flex w-fit rounded-[12px] whitespace-nowrap ${
+        isChecked ? 'bg-blue text-[#202124]' : 'bg-gray-light text-[#dcdee3]'
+      } `}
+    >
+      {!isNotTag && '#'}
+      {content}
+    </div>
   );
 };
 

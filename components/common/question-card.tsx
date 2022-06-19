@@ -2,8 +2,9 @@ import { Card } from '@mui/material';
 import { useQuestionCard } from 'lib/hooks';
 import Image from 'next/image';
 import React, { memo } from 'react';
+import ArrowIcon from './arrow-icon';
 import Bookmark from './bookmark';
-import Tag from './tag';
+import MiniTag from './mini-tag';
 
 interface Props {
   id: number;
@@ -24,7 +25,7 @@ const QuestionCard = ({ description, isBookmark, tags, title, id }: Props) => {
       </section>
       <section className="my-[14px] flex gap-[9px]">
         {tags.map((v, i) => (
-          <Tag content={v} key={i} />
+          <MiniTag content={v} key={i} />
         ))}
       </section>
       <section className="relative">
@@ -42,13 +43,7 @@ const QuestionCard = ({ description, isBookmark, tags, title, id }: Props) => {
         <button className="text-white" onClick={onToggleShow}>
           자세히보기
         </button>
-        <Image
-          src="/assets/icons/down-arrow.svg"
-          alt="arrow"
-          width={17}
-          height={8}
-          className={`cursor-pointer ${show ? '' : 'rotate-180'}`}
-        />
+        <ArrowIcon color="white" width={17} height={8} className={`cursor-pointer`} isToggle={show} />
       </section>
     </Card>
   );

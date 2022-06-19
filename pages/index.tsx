@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { MainBanner } from '@components/Banner';
+import { MainBanner } from '@components/common/banner';
 import QuestionCard from '@components/common/question-card';
 
 const Home: NextPage = () => {

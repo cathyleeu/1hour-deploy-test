@@ -6,7 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div>
+    <>
       <Head>
         <title>1Hour</title>
         <meta name="description" content="개발자를 위한 기술 면접 사이트" />
@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </div>
+    </>
   );
 }
 
