@@ -24,6 +24,7 @@ module.exports = {
       },
       backgroundImage: {
         'logo-img': "url('/assets/images/sidebar/logo.svg')",
+        'dropdown-arrow-img': "url('/assets/images/sidebar/arrow.svg')",
       },
       gridTemplateColumns: {
         layout: '300px auto',

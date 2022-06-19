@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import Dropdown from '@components/Dropdown'
 
 const DevQuiz: NextPage = () => {
   return (
