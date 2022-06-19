@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import HeaderCard from '@components/category/header-card';
-import { categoryHeader } from 'lib/utils';
+import CategoryBanner from '@components/category/banner';
+import { categoryBanner } from 'lib/utils';
 
 const Category = () => {
   const router = useRouter();
@@ -9,7 +9,7 @@ const Category = () => {
 
   return (
     <>
-      <HeaderCard data={categoryHeader[category as CategoryKey]} />
+      <CategoryBanner data={categoryBanner[category as CategoryKey]} />
       메인 페이지 {category}
       {/* TODO: Category */}
     </>

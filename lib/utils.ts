@@ -1,4 +1,4 @@
-export const categoryHeader: CategoryHeader = {
+export const categoryBanner: CategoryBanner = {
   frontend: {
     title: 'Front-End',
     content:
