@@ -6,6 +6,10 @@ type CategoryValue = {
   src: string;
 };
 
-type CategoryHeader = {
+type CategoryBanner = {
   [key in CategoryKey]: CategoryValue;
+};
+
+type TagValue = {
+  [key in CategoryKey]: string[];
 };

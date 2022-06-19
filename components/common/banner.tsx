@@ -5,8 +5,8 @@ export const MainBanner = () => {
   return (
     <div
       className="
-        w-screen h-screen
-        max-w-[945px] max-h-[425px]
+        w-full h-screen
+        min-w-[750px] max-h-[425px]
         flex flex-col md:flex-row 
         bg-primary  rounded-[25px]
         px-10 py-4
