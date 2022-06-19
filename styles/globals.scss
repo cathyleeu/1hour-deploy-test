@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-primary: #0F2644;
+  --color-red: #0F2644;
+  --color-delete: var(--color-red);
+  --color-error: var(--color-red);
+
+  --color-blue: #267FF5;
+  --color-blue-dark: #0F2644;
+  --color-blue-light: #A2CAFF;
+
+  --color-grey: #1B2128;
+  --color-grey-dark: #171C22;
+  --color-grey-light: #2F3844;
+
+  --color-orange: #FC8124; 
+}
+
 html,
 body {
   padding: 0;
@@ -18,3 +35,4 @@ a {
 * {
   box-sizing: border-box;
 }
+
