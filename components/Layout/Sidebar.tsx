@@ -18,7 +18,7 @@ export default function Sidebar({}) {
   ]
 
   return (
-    <div className="flex flex-col items-center h-full bg-black--sidebar text-white">
+    <div className="flex flex-col items-center h-full bg-grey-dark text-white">
       {/* logo */}
       <div className="w-full ml-14 mt-20">
         <Link href="/">

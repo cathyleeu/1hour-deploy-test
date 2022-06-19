@@ -5,7 +5,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'black--sidebar': '#0B0F13',
+        primary: {
+          DEFAULT: 'var(--color-primary)',
+        },
+        delete: 'var(--color-red)',
+        error: 'var(--color-red)',
+        blue: {
+          dark: 'var(--color-blue-dark)',
+          DEFAULT: 'var(--color-blue)',
+          light: 'var(--color-blue-light)',
+        },
+        grey: {
+          dark: 'var(--color-grey-dark)',
+          DEFAULT: 'var(--color-grey)',
+          light: 'var(--color-grey-light)',
+        },
+        orange: 'var(--color-orange)',
       },
       backgroundImage: {
         'logo-img': "url('/assets/images/sidebar/logo.svg')",
