@@ -1,7 +1,6 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import styles from '../styles/Home.module.scss'
-import { MainBanner } from '@components/Banner'
+import { MainBanner } from '@components/common/banner';
+import type { NextPage } from 'next';
+import Head from 'next/head';
 
 const Home: NextPage = () => {
   return (
@@ -14,9 +13,9 @@ const Home: NextPage = () => {
       <div>
         메인페이지
         <MainBanner />
-        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

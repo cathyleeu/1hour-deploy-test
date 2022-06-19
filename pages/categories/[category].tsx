@@ -20,7 +20,7 @@ export default Category;
 
 export const getStaticPaths: GetStaticPaths = () => {
   //TODO: check with category page
-  const categoryPage = ['frontend', 'backend', 'devops', 'mobile', 'android', 'ios'];
+  const categoryPage = ['frontend', 'backend', 'devops', 'mobile', 'datascience'];
   return {
     paths: categoryPage.map((v) => ({ params: { category: v } })),
     fallback: false,
