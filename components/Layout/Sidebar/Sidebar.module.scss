@@ -1,11 +1,11 @@
 .container {
-  position: absolute;
   width: 301px;
   height: 100%;
-  left: 0;
-  top: 0;
+
+  box-sizing: border-box;
 
   background-color: #0b0f13;
+
   .logo {
     width: 107px;
     height: 67px;
@@ -19,7 +19,7 @@
     background: url('./logo.svg');
   }
   .select_group {
-    margin-left: 31px;
+    // margin-left: 31px;
     & > * {
       width: 244px;
       height: 51px;

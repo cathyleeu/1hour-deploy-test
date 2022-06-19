@@ -1,6 +1,6 @@
 import styles from './Sidebar.module.scss'
 
-const Sidebar: React.FC = () => {
+const Sidebar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.logo} />

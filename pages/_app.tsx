@@ -1,14 +1,13 @@
 import '../styles/reset.scss'
 import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
-import Sidebar from '../components/Sidebar'
+import Layout from '../components/Layout'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Sidebar />
+    <Layout>
       <Component {...pageProps} />
-    </>
+    </Layout>
   )
 }
 
