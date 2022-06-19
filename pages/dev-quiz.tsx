@@ -99,9 +99,6 @@ const DevQuiz: NextPage = () => {
       <Head>
         <title>1Hour - Dev Quiz</title>
       </Head>
-      <div className='my-10'>
-        header
-      </div>
       {
         stage === 0 
           ? (
@@ -110,10 +107,6 @@ const DevQuiz: NextPage = () => {
             <QuizStage stage={stage} setStage={setStage} limit={limit}/>
           )
       }
-      
-      <div>
-        
-      </div>
     </Container>
   );
 };
