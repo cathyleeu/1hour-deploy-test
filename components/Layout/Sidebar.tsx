@@ -1,12 +1,12 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
 {
   /* TODO: 스타일, select */
 }
 
 interface Category {
-  name: string
-  params: string
+  name: string;
+  params: string;
 }
 export default function Sidebar({}) {
   const categories: Category[] = [
@@ -15,10 +15,10 @@ export default function Sidebar({}) {
     { name: 'Android', params: 'Android' },
     { name: 'iOS', params: 'ios' },
     { name: '데브옵스', params: 'devops' },
-  ]
+  ];
 
   return (
-    <div className="flex flex-col items-center h-full bg-grey-dark text-white">
+    <div className="flex flex-col items-center h-full bg-gray-dark text-white">
       {/* logo */}
       <div className="w-full ml-14 mt-20">
         <Link href="/">
@@ -49,5 +49,5 @@ export default function Sidebar({}) {
         <p>글쓰기</p>
       </Link>
     </div>
-  )
+  );
 }

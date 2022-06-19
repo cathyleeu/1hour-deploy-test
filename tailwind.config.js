@@ -15,10 +15,10 @@ module.exports = {
           DEFAULT: 'var(--color-blue)',
           light: 'var(--color-blue-light)',
         },
-        grey: {
-          dark: 'var(--color-grey-dark)',
-          DEFAULT: 'var(--color-grey)',
-          light: 'var(--color-grey-light)',
+        gray: {
+          dark: 'var(--color-gray-dark)',
+          DEFAULT: 'var(--color-gray)',
+          light: 'var(--color-gray-light)',
         },
         orange: 'var(--color-orange)',
       },
