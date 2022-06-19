@@ -12,3 +12,11 @@ export const useQuestionCard = () => {
 
   return { show, onToggleShow, onToggleBookmark };
 };
+
+export const useTag = () => {
+  const onToggleTag = (id: number) => {
+    //TODO: fetch data
+  };
+
+  return { onToggleTag };
+};

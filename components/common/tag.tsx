@@ -1,12 +1,25 @@
+import { useTag } from 'lib/hooks';
 import { memo } from 'react';
 
-interface Props {
+type Props = {
+  id: number;
+  isChecked: boolean;
   content: string;
-}
+  isNotTag?: boolean;
+};
 
-const Tag = ({ content }: Props) => {
+const Tag = ({ id, content, isChecked, isNotTag = false }: Props) => {
+  const { onToggleTag } = useTag();
   return (
-    <div className="text-blue px-[9px] py-[6px] w-fit border border-blue rounded-[12px] font-poppins text-[10px] whitespace-nowrap">{`#${content}`}</div>
+    <div
+      onClick={() => onToggleTag(id)}
+      className={`cursor-pointer text-[16px] px-[16px] py-[12px] w-fit rounded-[12px] ${
+        isChecked ? 'bg-blue text-[#202124]' : 'bg-gray-light text-[#DCDEE3]'
+      } `}
+    >
+      {!isNotTag && '#'}
+      {content}
+    </div>
   );
 };
 
