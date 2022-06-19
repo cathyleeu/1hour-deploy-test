@@ -25,11 +25,16 @@ module.exports = {
       backgroundImage: {
         'logo-img': "url('/assets/images/sidebar/logo.svg')",
         'dropdown-arrow-img': "url('/assets/images/sidebar/arrow.svg')",
+        'bulb': "url('/assets/images/quiz/bulb.png')",
+        'question': "url('/assets/images/quiz/question.png')",
+        'explanation': "url('/assets/images/quiz/explanation.png')",
+        'file': "url('/assets/images/quiz/file.png)"
       },
       gridTemplateColumns: {
         layout: '300px auto',
       },
       borderRadius: {
+        medium: '12px',
         large: '25px'
       },
       fontFamily: {

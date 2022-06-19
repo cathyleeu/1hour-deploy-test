@@ -4,6 +4,7 @@ interface InputForwardRefProps extends React.InputHTMLAttributes<HTMLInputElemen
   // children: React.ReactNode;
   className?: string;
   disabled?: boolean;
+  error?: boolean;
 }
 
 
@@ -14,6 +15,8 @@ function Input(
   return (
     <input 
       {...props}
+      className={`
+      ${ props.error ? 'border-error' : undefined }`}
       ref={ref}
     />
   )
