@@ -17,7 +17,7 @@ const QuestionCard = ({ description, isBookmark, tags, title, id }: Props) => {
   const { onToggleBookmark, onToggleShow, show } = useQuestionCard();
 
   return (
-    <Card className="bg-gray px-[30px] py-[20px] w-full rounded-[25px]" sx={{}}>
+    <Card className="bg-gray-light px-[30px] py-[20px] w-full rounded-[25px]" sx={{}}>
       <section className="flex justify-between">
         <p className="text-white font-bold text-[24px]">{title}</p>
         <Bookmark isChecked={isBookmark} onClick={() => onToggleBookmark(id)} />
@@ -33,12 +33,12 @@ const QuestionCard = ({ description, isBookmark, tags, title, id }: Props) => {
           <div
             className="absolute w-full h-full top-0 rotate-180"
             style={{
-              background: 'linear-gradient(180deg, #1B2128 25.83%, rgba(27, 33, 40, 0) 123.33%)',
+              background: 'linear-gradient(180deg, #2f3844 25.83%, rgba(27, 33, 40, 0) 123.33%)',
             }}
           />
         )}
       </section>
-      <section className="border-t border-[#313B46] pt-[20px] flex align-middle justify-center gap-[7px]">
+      <section className="border-t border-slate-300 pt-[20px] flex align-middle justify-center gap-[7px]">
         <button className="text-white" onClick={onToggleShow}>
           자세히보기
         </button>

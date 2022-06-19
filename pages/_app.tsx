@@ -1,12 +1,12 @@
-import '../styles/globals.scss'
-import type { AppProps } from 'next/app'
-import Head from 'next/head'
-import Layout from '@components/Layout'
-import CssBaseline from '@mui/material/CssBaseline'
+import '../styles/globals.scss';
+import type { AppProps } from 'next/app';
+import Head from 'next/head';
+import Layout from '@components/Layout';
+import CssBaseline from '@mui/material/CssBaseline';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <div>
       <Head>
         <title>1Hour</title>
         <meta name="description" content="개발자를 위한 기술 면접 사이트" />
@@ -14,11 +14,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <CssBaseline />
       <Layout>
-        <h1>CONTENTS SECTION</h1>
         <Component {...pageProps} />
       </Layout>
-    </>
-  )
+    </div>
+  );
 }
 
-export default MyApp
+export default MyApp;
