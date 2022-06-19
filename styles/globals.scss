@@ -18,11 +18,14 @@
   textarea {
     @apply resize-none;
   }
+  p {
+    @apply text-white;
+  }
 }
 
 :root {
   --color-primary: #0f2644;
-  --color-red: #0f2644;
+  --color-red: #DA4D4D;
   --color-delete: var(--color-red);
   --color-error: var(--color-red);
 
@@ -52,4 +55,14 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number]{
+  -moz-appearance: textfield;
 }
