@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  textarea, input {
+    @apply text-white;
+    @apply bg-grey;
+    @apply outline-none;
+    @apply border; 
+    @apply border-grey; 
+    @apply focus:border-blue;
+    @apply placeholder:text-white/30;
+    @apply py-4;
+    @apply px-6;
+    @apply w-full;
+  }
+  textarea {
+    @apply resize-none;
+  }
+}
+
 :root {
   --color-primary: #0f2644;
   --color-red: #0f2644;

@@ -28,6 +28,9 @@ module.exports = {
       gridTemplateColumns: {
         layout: '300px auto',
       },
+      borderRadius: {
+        large: '25px'
+      }
     },
   },
 }
