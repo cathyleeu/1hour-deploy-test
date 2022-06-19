@@ -1,16 +1,20 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import CategoryBanner from '@components/category/banner';
-import { categoryBanner } from 'lib/utils';
+import { categoryBanner, tagByCategory } from 'lib/utils';
+import TagList from '@components/common/tag-list';
+import { useMemo } from 'react';
 
 const Category = () => {
   const router = useRouter();
   const { category } = router.query;
 
+  const tagList = useMemo(() => tagByCategory[category as CategoryKey], [category]);
+
   return (
     <>
       <CategoryBanner data={categoryBanner[category as CategoryKey]} />
-      메인 페이지 {category}
+      <TagList value={tagList} /> 메인 페이지 {category}
       {/* TODO: Category */}
     </>
   );
