@@ -7,12 +7,12 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   return (
-    <div className="flex h-screen w-screen">
+    <div className="grid grid-cols-layout h-screen w-screen">
       <Sidebar />
       {/* MAIN : pages */}
-      <div className="w-full">
-        <Navbar />
-        <main>{children}</main>
+      <div className="flex flex-col items-center bg-gray-800 mt-24 mx-20 ">
+        {/* <Navbar /> */}
+        <main className="">{children}</main>
       </div>
     </div>
   )

@@ -18,9 +18,16 @@ export default function Sidebar({}) {
   ]
 
   return (
-    <div className="h-full w-[300px] border cursor-pointer">
+    <div className="flex flex-col items-center h-full bg-black--sidebar text-white">
+      {/* logo */}
+      <div className="w-full ml-14 mt-20">
+        <Link href="/">
+          <button className="w-[108px] h-[68px] bg-[url('/assets/images/sidebar/logo.svg')]" />
+        </Link>
+      </div>
+
       {/* TODO : 드롭다운 */}
-      <p className="text-2xl">학습하기</p>
+      <div className="text-2xl mt-16 w-60 h-12 bg-sky-600">학습하기</div>
       {/* TODO : 카테고리 */}
       <ul>
         {categories.map((category: Category, i: number) => (
@@ -29,8 +36,9 @@ export default function Sidebar({}) {
           </li>
         ))}
       </ul>
+
       {/* TODO : 드롭다운 */}
-      <p className="text-2xl">복습하기</p>
+      <div className="text-2xl mt-16 w-60 h-12 bg-sky-600">복습하기</div>
       <Link href="/bookmark">
         <p>북마크</p>
       </Link>
