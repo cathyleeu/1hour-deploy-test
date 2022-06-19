@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React, { memo } from 'react';
 
-const HeaderCard = ({ data }: { data: CategoryValue }) => {
+const CategoryBanner = ({ data }: { data: CategoryValue }) => {
   const { content, src, title } = data;
 
   return (
@@ -17,4 +17,4 @@ const HeaderCard = ({ data }: { data: CategoryValue }) => {
   );
 };
 
-export default memo(HeaderCard);
+export default memo(CategoryBanner);
