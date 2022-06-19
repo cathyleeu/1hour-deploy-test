@@ -1,18 +1,19 @@
 import Sidebar from './Sidebar'
-import styles from './Layout.module.scss'
-import MainSection from './MainSection'
+import Navbar from './Navbar'
 
-type LayoutProps = {
+interface Props {
   children: React.ReactNode
 }
 
-const Layout = ({ children }: LayoutProps) => {
+export default function Layout({ children }: Props) {
   return (
-    <div className={styles.container}>
+    <div className="flex h-screen w-screen">
       <Sidebar />
-      <div className={styles.main_section}>{children}</div>
+      {/* MAIN : pages */}
+      <div className="w-full">
+        <Navbar />
+        <main>{children}</main>
+      </div>
     </div>
   )
 }
-
-export default Layout
