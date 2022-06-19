@@ -61,7 +61,7 @@ export default function Banner({
   return (
     <div className='
       w-full flex flex-col md:flex-row content-center
-      bg-grey rounded-[25px]
+      bg-gray rounded-[25px]
       sm:max-h-[254px] max-w-[945px]
       px-10 py-4
     '>
