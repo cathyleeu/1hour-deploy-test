@@ -1,36 +1,37 @@
-import { GetServerSideProps, NextPage } from 'next'
-import Head from 'next/head'
-import {CategoryParams} from '../../types'
-import Banner from '@components/Banner';
-import bannerData from '../api/bannerData.js';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
+import HeaderCard from '@components/category/header-card';
+import { categoryHeader } from 'lib/utils';
 
-interface Props {
-  category:string;
-  banner: any;
-}
-const Category: NextPage<Props> = ({category, banner}:Props) => {
+const Category = () => {
+  const router = useRouter();
+  const { category } = router.query;
+
   return (
-    <div>
-      <Head>
-        <title>1Hour - {category}</title>
-      </Head>
+    <>
+      <HeaderCard data={categoryHeader[category as CategoryKey]} />
       메인 페이지 {category}
-      <Banner {...banner} />
       {/* TODO: Category */}
-    </div>
-  )
-}
+    </>
+  );
+};
 
-export default Category
+export default Category;
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { category } = params as CategoryParams;
-  const banner = (bannerData as any)[category];
+export const getStaticPaths: GetStaticPaths = () => {
+  //TODO: check with category page
+  const categoryPage = ['frontend', 'backend', 'devops', 'mobile', 'android', 'ios'];
+  return {
+    paths: categoryPage.map((v) => ({ params: { category: v } })),
+    fallback: false,
+  };
+};
 
+export const getStaticProps: GetStaticProps = ({ params }) => {
+  //TODO: fetch data
   return {
     props: {
-      category,
-      banner
+      params,
     },
   };
 };

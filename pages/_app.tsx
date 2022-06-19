@@ -1,8 +1,8 @@
-import '../styles/globals.scss'
-import type { AppProps } from 'next/app'
-import Head from 'next/head'
-import Layout from '@components/Layout'
-import CssBaseline from '@mui/material/CssBaseline'
+import '../styles/globals.scss';
+import type { AppProps } from 'next/app';
+import Head from 'next/head';
+import Layout from '@components/Layout';
+import CssBaseline from '@mui/material/CssBaseline';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </Layout>
     </>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;
