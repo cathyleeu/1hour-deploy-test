@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  textarea, input {
+    @apply text-white;
+    @apply bg-gray;
+    @apply outline-none;
+    @apply border; 
+    @apply border-gray; 
+    @apply focus:border-blue;
+    @apply placeholder:text-white/30;
+    @apply py-4;
+    @apply px-6;
+    @apply w-full;
+  }
+  textarea {
+    @apply resize-none;
+  }
+}
+
 :root {
   --color-primary: #0f2644;
   --color-red: #0f2644;
@@ -12,9 +30,9 @@
   --color-blue-dark: #0f2644;
   --color-blue-light: #a2caff;
 
-  --color-grey: #1b2128;
-  --color-grey-dark: #171c22;
-  --color-grey-light: #2f3844;
+  --color-gray: #1b2128;
+  --color-gray-dark: #171c22;
+  --color-gray-light: #2f3844;
 
   --color-orange: #fc8124;
 }

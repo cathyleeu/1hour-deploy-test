@@ -1,4 +1,4 @@
-const colors = require('tailwindcss/colors')
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
@@ -15,10 +15,10 @@ module.exports = {
           DEFAULT: 'var(--color-blue)',
           light: 'var(--color-blue-light)',
         },
-        grey: {
-          dark: 'var(--color-grey-dark)',
-          DEFAULT: 'var(--color-grey)',
-          light: 'var(--color-grey-light)',
+        gray: {
+          dark: 'var(--color-gray-dark)',
+          DEFAULT: 'var(--color-gray)',
+          light: 'var(--color-gray-light)',
         },
         orange: 'var(--color-orange)',
       },
@@ -29,6 +29,12 @@ module.exports = {
       gridTemplateColumns: {
         layout: '300px auto',
       },
+      borderRadius: {
+        large: '25px'
+      },
+      fontFamily: {
+        poppins: ['Poppins', ...defaultTheme.fontFamily.sans],
+      },
     },
   },
-}
+};
