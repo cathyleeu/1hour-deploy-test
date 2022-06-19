@@ -3,7 +3,7 @@ import { useQuestionCard } from 'lib/hooks';
 import Image from 'next/image';
 import React, { memo } from 'react';
 import Bookmark from './bookmark';
-import Tag from './tag';
+import MiniTag from './mini-tag';
 
 interface Props {
   id: number;
@@ -24,7 +24,7 @@ const QuestionCard = ({ description, isBookmark, tags, title, id }: Props) => {
       </section>
       <section className="my-[14px] flex gap-[9px]">
         {tags.map((v, i) => (
-          <Tag content={v} key={i} />
+          <MiniTag content={v} key={i} />
         ))}
       </section>
       <section className="relative">
