@@ -7,10 +7,10 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   return (
-    <div className="grid grid-cols-layout h-screen w-screen bg-gray">
+    <div className="grid grid-cols-layout h-screen w-screen bg-[#0e1217]">
       <Sidebar />
       {/* MAIN : pages */}
-      <div className="flex flex-col items-center bg-gray-light mt-24 mx-20 ">
+      <div className="flex flex-col items-center mt-24 mx-20 ">
         {/* <Navbar /> */}
         {children}
       </div>

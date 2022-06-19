@@ -9,3 +9,7 @@ type CategoryValue = {
 type CategoryBanner = {
   [key in CategoryKey]: CategoryValue;
 };
+
+type TagValue = {
+  [key in CategoryKey]: string[];
+};
