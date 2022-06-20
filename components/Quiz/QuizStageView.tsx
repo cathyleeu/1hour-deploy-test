@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import useInput from 'utils/hooks/useInput';
 import useCountdown from 'utils/hooks/useCountdown';
+
+import { RandomQuizList, generateRandom } from 'lib/utils';
+
 import Modal from '@components/common/modal';
 import Button from '@components/common/button';
 import { QuestionCard, AnswerCard, QuizTimer } from '@components/Quiz';
 
 const QUIZ_NUM = 10;
+
+const random = generateRandom(RandomQuizList.length, QUIZ_NUM);
 
 const QuizStageView = ({
   stage,
@@ -21,6 +26,8 @@ const QuizStageView = ({
   const [error, setError] = useState('');
   const [expiredMessage, setExpiredMessage] = useState('시간 안에 풀지 못했네요. 다음문제로 넘어갑니다.');
   const [isOpen, setIsOpen] = useState(false);
+  const [question, setQuestion] = useState('')
+
   const handleNextStage = async() => {
     const isAvailable = (answer.attrs.value as string).length > 10;
 
@@ -49,10 +56,10 @@ const QuizStageView = ({
 
 
     // 단계가 끝났을 때 
-    if(stage === QUIZ_NUM) {
-      clearCountdown(); 
+    if(stage > QUIZ_NUM) {
+      clearCountdown();
     }
-
+    
     setStage(stage + 1);
     return;
   }
@@ -61,6 +68,8 @@ const QuizStageView = ({
   }
 
   useEffect(() => {
+    // random[stage - 1]
+    setQuestion(RandomQuizList[random[stage -1] - 1]?.question);
     setCountdown(limit * 60 * 1000);
   }, [])
 
@@ -75,10 +84,11 @@ const QuizStageView = ({
     answer.setValue('');
     clearCountdown();
     if(stage <= QUIZ_NUM) {
+      setQuestion(RandomQuizList[random[stage -1] - 1]?.question);
       startCountdown(limit * 60 * 1000);
     }
   }, [stage])
-
+  
   return (
     <section>
       <div className='flex justify-between items-center mb-10'>
@@ -92,7 +102,7 @@ const QuizStageView = ({
         <QuestionCard
           maxStage={QUIZ_NUM} 
           stage={stage} 
-          question={'RESTful API 란 무엇인가요? 설명해주세요'}
+          question={question}
         />
         <AnswerCard {...answer.attrs} error={error} />
         {error ? <span className='text-error text-base absolute right-0 -bottom-8 text-right'>{ error }</span> : null }

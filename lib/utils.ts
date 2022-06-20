@@ -164,3 +164,17 @@ export const RandomQuizList = [
 export function rand(min:number, max:number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+export function generateRandom(max:number, quizNum:number, array:number[] = []):number[] {  
+  
+  let rand = Math.floor(Math.random() * max) + 1;  
+
+  if (array.length < quizNum) {    
+    if(array.indexOf(rand) < 0) {
+      array.push(rand);
+    }
+    return generateRandom(max, quizNum, array);  
+  } else {    
+    return array;  
+  }
+}

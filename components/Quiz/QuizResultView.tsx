@@ -1,4 +1,4 @@
-import { RandomQuizList, rand } from 'lib/utils';
+import { RandomQuizList, generateRandom } from 'lib/utils';
 
 import Button from '@components/common/button';
 import { QuestionCard, ResultCard } from '@components/Quiz';
@@ -6,13 +6,20 @@ import { QuestionCard, ResultCard } from '@components/Quiz';
 const QUIZ_NUM = 10;
 
 
-const QuizResultView = () => {
+const QuizResultView = ({
+  setStage,
+  setPhase
+}: {
+  setPhase: (phase:string) => void;
+  setStage: (stage:number) => void;
+}) => {
   
   const handleBackStage = () => {
-    console.log('???')
+    setStage(0);
+    setPhase('setup');
   }
+  const random = generateRandom(RandomQuizList.length, QUIZ_NUM);
 
-  const random = Array.from({length: 10}, (_, i) => rand(1, RandomQuizList.length - 1));
   return (
     <section>
       <div className='flex justify-between items-center mb-10'>
@@ -22,7 +29,7 @@ const QuizResultView = () => {
         <Button
           className='font-bold p-4 px-6 self-end'
           onClick={handleBackStage}
-        >다음 풀기</Button>
+        >다시 풀기</Button>
       </div>
       {
         random.map((r, i) => (
@@ -30,17 +37,15 @@ const QuizResultView = () => {
             <QuestionCard
               maxStage={QUIZ_NUM} 
               stage={i + 1} 
-              question={RandomQuizList[r].question}
+              question={RandomQuizList[i].question}
             />
             <div className='flex gap-4'>
-              <ResultCard type="other" content={RandomQuizList[r].answer}/>
+              <ResultCard type="other" content={RandomQuizList[i].answer}/>
               <ResultCard type="answer" content='모르겠음 ㅜ ㅜ'/>
             </div>
           </div>
         ))
       }
-      
-      
     </section>
   )
 }
