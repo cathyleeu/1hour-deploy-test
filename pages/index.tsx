@@ -2,7 +2,6 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { MainBanner } from '@components/common/banner';
 import QuestionCard from '@components/common/question-card';
-import { getCategory, getTags } from './api/oneHourAPI';
 import questions from '../dummy/questions.json';
 
 const Home: NextPage = () => {

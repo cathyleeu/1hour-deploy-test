@@ -15,7 +15,6 @@ type AppPropsWithLayout = AppProps & {
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const noLayout = Component.noLayout;
-  console.log('isLayout', noLayout);
 
   return (
     <>
