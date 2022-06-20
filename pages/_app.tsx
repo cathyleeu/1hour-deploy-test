@@ -3,8 +3,20 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Layout from '@components/Layout';
 import CssBaseline from '@mui/material/CssBaseline';
+import { NextPage } from 'next';
 
-function MyApp({ Component, pageProps }: AppProps) {
+export type NextPageWithLayout = NextPage & {
+  noLayout?: boolean;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  const noLayout = Component.noLayout;
+  console.log('isLayout', noLayout);
+
   return (
     <>
       <Head>
@@ -13,9 +25,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CssBaseline />
-      <Layout>
+      {noLayout ? (
         <Component {...pageProps} />
-      </Layout>
+      ) : (
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      )}
     </>
   );
 }
