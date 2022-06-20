@@ -19,7 +19,7 @@ const Category = () => {
         <SmallHeader content="태그로 찾아보기" src="/assets/icons/tag.png" />
       </section>
       <section>
-        <TagList value={tagList} /> 메인 페이지 {category}
+        <TagList value={tagList} />
       </section>
       {/* TODO: fetch count data */}
       <section className="mt-[53px]">
