@@ -2,7 +2,11 @@ import { memo, useCallback, useEffect, useState } from 'react';
 import ArrowIcon from './arrow-icon';
 import Tag from './tag';
 
-const TagList = ({ value }: { value: string[] }) => {
+interface Props {
+  value: string[];
+}
+
+const TagList = ({ value }: Props) => {
   const [selectedTag, setSelectedTag] = useState<string[]>([]);
   const [isFold, setIsFold] = useState(true);
 

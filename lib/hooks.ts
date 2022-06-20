@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import questions from '../dummy/questions.json';
 
 export const useQuestionCard = () => {
   const [show, setShow] = useState(false);
@@ -7,7 +8,6 @@ export const useQuestionCard = () => {
 
   const onToggleBookmark = (id: number) => {
     //TODO: fetch data
-    console.log('id', id);
   };
 
   return { show, onToggleShow, onToggleBookmark };

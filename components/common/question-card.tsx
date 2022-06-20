@@ -1,6 +1,5 @@
 import { Card } from '@mui/material';
 import { useQuestionCard } from 'lib/hooks';
-import Image from 'next/image';
 import React, { memo } from 'react';
 import ArrowIcon from './arrow-icon';
 import Bookmark from './bookmark';

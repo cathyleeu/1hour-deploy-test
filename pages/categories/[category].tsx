@@ -14,7 +14,7 @@ const Category = () => {
 
   const tagList = useMemo(() => tagByCategory[category as CategoryKey], [category]);
 
-  console.log(category);
+  const filteredQuestions = questions.filter((question) => question.category === category);
 
   return (
     <main className="w-full">
@@ -27,15 +27,13 @@ const Category = () => {
       </section>
       {/* TODO: fetch count data */}
       <section className="mt-[53px]">
-        <SmallHeader content="전체(23)" src="/assets/icons/pen.png" />
+        <SmallHeader content={`전체 (${filteredQuestions.length})`} src="/assets/icons/pen.png" />
       </section>
       {/* TODO: fetch list data */}
       <section className="flex flex-col gap-7 mb-40">
-        {questions
-          .filter((question) => question.category === category)
-          .map((data, id) => (
-            <QuestionCard key={id} {...data} />
-          ))}
+        {filteredQuestions.map((data, id) => (
+          <QuestionCard key={id} {...data} />
+        ))}
       </section>
     </main>
   );

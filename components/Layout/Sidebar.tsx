@@ -25,7 +25,7 @@ export default function Sidebar({}) {
   return (
     <div className="flex flex-col items-center h-full bg-[#0B0F13] text-white">
       {/* 로고 */}
-      <div className="w-full ml-14 mt-24 mb-20">
+      <div className="w-[244px] ml-[36px] mt-24 mb-[40px]">
         <Link href="/">
           <button className="w-[108px] h-[68px] bg-[url('/assets/images/sidebar/logo.svg')]" />
         </Link>

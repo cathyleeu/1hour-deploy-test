@@ -41,7 +41,7 @@ const SideDropdown = ({ src, title, list }: Props) => {
       <div className={'flex flex-col items-center'}>
         {/* button */}
         <button
-          className={`flex items-center rounded-xl  mb-4 px-4 py-3.5 w-60 h-12 bg-${
+          className={`flex items-center rounded-xl  mb-4 px-4 py-3.5 w-[244px] h-12 bg-${
             isOpen ? 'blue' : 'gray'
           } text-base font-bold `}
           onClick={() => setIsOpen(!isOpen)}
