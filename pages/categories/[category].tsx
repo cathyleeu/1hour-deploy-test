@@ -13,7 +13,7 @@ const Category = () => {
   const tagList = useMemo(() => tagByCategory[category as CategoryKey], [category]);
 
   return (
-    <main>
+    <main className="w-full">
       <CategoryBanner data={categoryBanner[category as CategoryKey]} />
       <section className="mt-[61px]">
         <SmallHeader content="태그로 찾아보기" src="/assets/icons/tag.png" />
