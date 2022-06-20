@@ -2,12 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  textarea, input {
+    @apply text-white;
+    @apply bg-gray;
+    @apply outline-none;
+    @apply border; 
+    @apply border-gray; 
+    @apply focus:border-blue;
+    @apply placeholder:text-white/30;
+    @apply py-4;
+    @apply px-6;
+    @apply w-full;
+  }
+  textarea {
+    @apply resize-none;
+  }
+  p {
+    @apply text-white;
+  }
+}
+
+:root {
+  --color-primary: #0f2644;
+  --color-red: #DA4D4D;
+  --color-delete: var(--color-red);
+  --color-error: var(--color-red);
+
+  --color-blue: #267ff5;
+  --color-blue-dark: #0f2644;
+  --color-blue-light: #a2caff;
+
+  --color-gray: #1b2128;
+  --color-gray-dark: #171c22;
+  --color-gray-light: #2f3844;
+
+  --color-orange: #fc8124;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -17,4 +55,14 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number]{
+  -moz-appearance: textfield;
 }

@@ -1,0 +1,5 @@
+{
+  "typescript.format.semicolons": "ignore",
+  "javascript.format.insertSpaceAfterSemicolonInForStatements": true,
+  "typescript.format.insertSpaceAfterSemicolonInForStatements": true
+}

@@ -1,4 +1,3 @@
-
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 
@@ -6,15 +5,15 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function Layout({children}:Props) {
-  return  (
-    <div className='flex h-screen w-screen'>
+export default function Layout({ children }: Props) {
+  return (
+    <div className="grid grid-cols-layout min-h-screen h-full w-screen bg-[#0E1217]">
       <Sidebar />
       {/* MAIN : pages */}
-      <div className='w-full'>
-        <Navbar />
-        <main>{children}</main>
+      <div className="flex flex-col items-center mt-24 mx-20 ">
+        {/* <Navbar /> */}
+        {children}
       </div>
     </div>
-  )
+  );
 }
