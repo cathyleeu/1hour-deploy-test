@@ -2,10 +2,14 @@ import { useState, useEffect } from 'react';
 import useInput from 'utils/hooks/useInput';
 import useCountdown from 'utils/hooks/useCountdown';
 
+import { RandomQuizList, rand } from 'lib/utils';
+
 import Button from '@components/common/button';
 import { QuestionCard, AnswerCard, QuizTimer } from '@components/Quiz';
 
 const QUIZ_NUM = 10;
+
+
 
 const QuizStageView = ({
   stage,
@@ -21,7 +25,6 @@ const QuizStageView = ({
   const [error, setError] = useState('');
   const handleNextStage = () => {
     if((answer.attrs.value as string).length < 10) {
-      console.log('errrrrr')
       setError('최소 10자 이상 입력해주세요.');
       setTimeout(() => {
         setError('')

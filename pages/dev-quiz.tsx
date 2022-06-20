@@ -25,10 +25,11 @@ const DevQuiz: NextPage = () => {
       <Head>
         <title>1Hour - Dev Quiz</title>
       </Head>
+      {/* TODO: 초기화 */}
       {phase === 'setup' && <SetupQuizView stage={stage} setStage={setStage} setLimit={setLimit} />}
       {phase === 'quiz' && <QuizStageView stage={stage} setStage={setStage} limit={limit}/> }
-      {/* TODO: 초기화 */}
       {phase === 'finished' && <QuizResultView /> }
+
     </Container>
   );
 };

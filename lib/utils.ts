@@ -160,3 +160,7 @@ export const RandomQuizList = [
     answer: "2차원 좌표에 분포된 데이터를 1차원 방적식을 통해 표현되지 않은 데이터를 예측하기 위한 분석 모델"
   }
 ]
+
+export function rand(min:number, max:number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
