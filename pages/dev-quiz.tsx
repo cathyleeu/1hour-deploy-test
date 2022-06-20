@@ -18,6 +18,7 @@ const DevQuiz: NextPage = () => {
     }
     if(stage > QUIZ_NUM) {
       setPhase('finished');
+      return;
     }
   }, [stage])
   return (
@@ -28,7 +29,7 @@ const DevQuiz: NextPage = () => {
       {/* TODO: 초기화 */}
       {phase === 'setup' && <SetupQuizView stage={stage} setStage={setStage} setLimit={setLimit} />}
       {phase === 'quiz' && <QuizStageView stage={stage} setStage={setStage} limit={limit}/> }
-      {phase === 'finished' && <QuizResultView /> }
+      {phase === 'finished' && <QuizResultView setPhase={setPhase} setStage={setStage}/> }
 
     </Container>
   );
