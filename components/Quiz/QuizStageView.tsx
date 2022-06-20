@@ -1,15 +1,11 @@
 import { useState, useEffect } from 'react';
 import useInput from 'utils/hooks/useInput';
 import useCountdown from 'utils/hooks/useCountdown';
-
-import { RandomQuizList, rand } from 'lib/utils';
-
+import Modal from '@components/common/modal';
 import Button from '@components/common/button';
 import { QuestionCard, AnswerCard, QuizTimer } from '@components/Quiz';
 
 const QUIZ_NUM = 10;
-
-
 
 const QuizStageView = ({
   stage,
@@ -23,8 +19,25 @@ const QuizStageView = ({
   const {expired, seconds, minutes, setCountdown, startCountdown, clearCountdown} = useCountdown(limit);
   const answer = useInput('');
   const [error, setError] = useState('');
-  const handleNextStage = () => {
-    if((answer.attrs.value as string).length < 10) {
+  const [expiredMessage, setExpiredMessage] = useState('시간 안에 풀지 못했네요. 다음문제로 넘어갑니다.');
+  const [isOpen, setIsOpen] = useState(false);
+  const handleNextStage = async() => {
+    const isAvailable = (answer.attrs.value as string).length > 10;
+
+    if(!isAvailable && expired) {
+      // 끝내지 못하고 넘어가는 상황
+      setExpiredMessage('시간 안에 풀지 못했네요. 다음문제로 넘어갑니다.')
+      setIsOpen(true);
+      setTimeout(() => {
+        setIsOpen(false);
+        setExpiredMessage('');
+        setStage(stage + 1);
+      }, 3000);
+      return;
+    }
+
+    if(!isAvailable) {
+      // 글자수가 미흡한 상황
       setError('최소 10자 이상 입력해주세요.');
       setTimeout(() => {
         setError('')
@@ -32,29 +45,34 @@ const QuizStageView = ({
       return;
     }
 
+    // TODO : add post api 
+
+
     // 단계가 끝났을 때 
     if(stage === QUIZ_NUM) {
       clearCountdown(); 
     }
-    
+
     setStage(stage + 1);
     return;
   }
+  const handleErrorModal = () => {
+    setIsOpen(false);
+  }
 
-  useEffect(() => {
-    console.log(minutes, 'outside');
-    
-  }, [minutes])
-  
   useEffect(() => {
     setCountdown(limit * 60 * 1000);
   }, [])
 
   useEffect(() => {
-    console.log(stage)
-    if(!expired) {
-      console.log('초과 안한 상황')
+    if(expired) {
+      handleNextStage();
+      return;
     }
+  }, [expired])
+
+  useEffect(() => {
+    answer.setValue('');
     clearCountdown();
     if(stage <= QUIZ_NUM) {
       startCountdown(limit * 60 * 1000);
@@ -83,7 +101,11 @@ const QuizStageView = ({
           onClick={handleNextStage}
         >다음 문제</Button>
       </div>
-      
+      <Modal isOpen={isOpen} onClose={handleErrorModal}>
+        <p className="text-center text-white my-8 whitespace-pre-wrap break-words font-bold text-xl">
+          {expiredMessage}
+        </p>
+      </Modal>
     </section>
   )
 }
