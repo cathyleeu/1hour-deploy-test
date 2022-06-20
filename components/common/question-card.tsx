@@ -18,7 +18,13 @@ const QuestionCard = ({ description, isBookmark, tags, title, id }: Props) => {
   const { onToggleBookmark, onToggleShow, show } = useQuestionCard();
 
   return (
-    <Card className="bg-gray-light px-[30px] py-[20px] w-full rounded-[25px]" sx={{}}>
+    <Card sx={{
+      backgroundColor: 'var(--color-gray-light)',
+      borderRadius: '25px',
+      paddingX: '30px',
+      paddingY: '20px',
+      width: '100%'
+    }}>
       <section className="flex justify-between">
         <p className="text-white font-bold text-[24px]">{title}</p>
         <Bookmark isChecked={isBookmark} onClick={() => onToggleBookmark(id)} />
