@@ -7,7 +7,7 @@ const getTags = async (data: QnAType, user_id: string) => {
     const response = await customAxios.post(oneHourUrl.POST_QNA, data, { params: { user_id: user_id } });
     console.log(response.data.id);
   } catch (e) {
-    console.log('get tags error!');
+    console.log('post QnA error!');
   }
 };
 

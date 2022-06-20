@@ -12,19 +12,22 @@ interface Props {
   title: string;
   description: string;
   isBookmark: boolean;
+  category?: string;
 }
 
 const QuestionCard = ({ description, isBookmark, tags, title, id }: Props) => {
   const { onToggleBookmark, onToggleShow, show } = useQuestionCard();
 
   return (
-    <Card sx={{
-      backgroundColor: 'var(--color-gray-light)',
-      borderRadius: '25px',
-      paddingX: '30px',
-      paddingY: '20px',
-      width: '100%'
-    }}>
+    <Card
+      sx={{
+        backgroundColor: 'var(--color-gray-light)',
+        borderRadius: '25px',
+        paddingX: '30px',
+        paddingY: '20px',
+        width: '100%',
+      }}
+    >
       <section className="flex justify-between">
         <p className="text-white font-bold text-[24px]">{title}</p>
         <Bookmark isChecked={isBookmark} onClick={() => onToggleBookmark(id)} />
