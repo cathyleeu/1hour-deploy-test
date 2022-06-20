@@ -67,7 +67,7 @@ const SetupQuiz = ({
         북마크된 질문을 풀어보세요
       </p>
       
-      <IconText icon="bulb" className='mb-5'>
+      <IconText src="/assets/images/quiz/bulb.png" className='mb-5'>
         <p className='font-bold text-xl'>학습을 시작할 카테고리를 모두 선택해주세요.</p>
       </IconText>
         

@@ -1,13 +1,17 @@
+import Image from 'next/image';
 interface Props {
-  icon: string;
+  src: string;
   children: React.ReactNode;
   className?: string;
 }
-const IconText = ({icon, children, className}:Props) => {
+const IconText = ({src, children, className}:Props) => {
   return (
     <div className={`flex items-center ${className}`}>
-      <div className={`bg-${icon} w-4 h-4 bg-contain mr-2`}></div>
-      {children}
+      <Image src={src} width={16} height={16} layout="fixed" />
+
+      <div className="ml-2">
+        {children}
+      </div>
     </div>
   )
 }

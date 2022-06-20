@@ -10,7 +10,7 @@ interface Props {
 const AnswerCard = ({className, value, onChange}: Props) => {
   return (
     <div className={`bg-gray w-full p-6 rounded-large ${className}`}>
-      <IconText icon="explanation" className='mb-5'>
+      <IconText src="/assets/images/quiz/explanation.png" className='mb-5'>
         <p className='font-bold text-xl'>Answer</p>
       </IconText>
       <p className='my-4'>다음문제를 풀기 위해선 입력해주셔야합니다.</p>

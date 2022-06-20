@@ -16,7 +16,7 @@ const QuestionCard = ({
   return (
     <div className={`bg-gray-light w-full p-6 rounded-large ${className}`}>
       <div className='flex justify-between items-center'>
-        <IconText icon="question" className='mb-5'>
+        <IconText src="/assets/images/quiz/question.png" className='mb-5'>
           <p className='font-bold text-xl'>Question</p>
         </IconText>
         <p className='text-sm'>{stage}/{maxStage}</p>
