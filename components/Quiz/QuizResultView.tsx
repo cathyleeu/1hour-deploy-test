@@ -31,7 +31,7 @@ const QuizResultView = () => {
       </div>
       {
         random.map((r, i) => (
-          <div className='flex flex-col gap-4 relative'>
+          <div className='flex flex-col gap-4 relative' key={i}>
             <QuestionCard
               maxStage={QUIZ_NUM} 
               stage={i + 1} 
