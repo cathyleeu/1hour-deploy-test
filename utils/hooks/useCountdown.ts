@@ -31,21 +31,16 @@ const useCountdown = (initialTime?:number) => {
 
   const clearCountdown = () => {
     setTimeDifference(initialDiff);
-    setExpired(true);
     clearInterval(timeInterval.current);
   }
 
   useEffect(() => {
     if(!countdown) return;
+
     clearInterval(timeInterval.current);
+    setExpired(false);
+    startCountdown(countdown);
     
-    // if(currentTimeGap < 0) {
-    //     setExpired(true);
-    //     return;
-    //   }
-      // setExpired(false);
-      startCountdown(countdown)
-    // }
     return () => {
       clearInterval(timeInterval.current);
     }
