@@ -23,7 +23,7 @@ export default function Sidebar({}) {
   ];
 
   return (
-    <div className="flex flex-col items-center h-full bg-gray-dark text-white">
+    <div className="flex flex-col items-center h-full bg-[#0B0F13] text-white">
       {/* 로고 */}
       <div className="w-full ml-14 mt-24 mb-20">
         <Link href="/">

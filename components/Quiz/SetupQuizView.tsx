@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import useInput from 'utils/hooks/useInput';
-import { IconText, TimerInput } from './';
+import { IconText, TimerInput } from '.';
 import Button from '@components/common/button';
 
 const MIN_MINUTES = 1;
@@ -31,7 +31,7 @@ const TagButton = ({
   )
 }
 
-const SetupQuiz = ({
+const SetupQuizView = ({
   stage,
   setStage,
   setLimit
@@ -93,4 +93,4 @@ const SetupQuiz = ({
   )
 }
 
-export default SetupQuiz;
+export default SetupQuizView;

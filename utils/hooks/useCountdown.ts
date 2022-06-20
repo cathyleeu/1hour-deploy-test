@@ -54,6 +54,7 @@ const useCountdown = (initialTime?:number) => {
   return {
     expired,
     setCountdown,
+    startCountdown,
     clearCountdown,
     ...timeDifference
   };
