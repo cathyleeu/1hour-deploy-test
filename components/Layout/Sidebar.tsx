@@ -1,10 +1,6 @@
 import SideDropdown from '@components/common/side-dropdown';
 import Link from 'next/link';
 
-{
-  /* TODO: 스타일, select */
-}
-
 interface Category {
   name: string;
   params: string;
