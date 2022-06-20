@@ -8,15 +8,8 @@ import {useQuiz} from '@components/Quiz/QuizContext';
 
 const MIN_MINUTES = 1;
 const MAX_MINUTES = 7;
-const fake = [
-  'gatsby',
-  'google-chrome',
-  'html',
-  'jamstack',
-  'javascript',
-  'nestjs',
-  'architecture',
-  'aspnet',,
+const fake = ['gatsby','google-chrome','html','jamstack','javascript','nestjs','architecture',
+  'aspnet',
   'big-data',
   'bots',
   'reactjs',
