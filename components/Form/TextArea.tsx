@@ -4,6 +4,7 @@ interface TextAreaForwardRefProps extends React.TextareaHTMLAttributes<HTMLTextA
   // children: React.ReactNode;
   className?: string;
   disabled?: boolean;
+  error?:string;
 }
 
 
@@ -14,6 +15,8 @@ function TextArea(
   return (
     <textarea
       {...props}
+      className={`
+      ${ props.error ? 'border-error' : undefined }`}
       ref={ref}
     />
   )
