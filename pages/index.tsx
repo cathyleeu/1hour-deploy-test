@@ -2,6 +2,8 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { MainBanner } from '@components/common/banner';
 import QuestionCard from '@components/common/question-card';
+import postQnA from './api/oneHourAPI/postQnA';
+import { getCategory, getTags } from './api/oneHourAPI';
 
 const Home: NextPage = () => {
   const temp = {
@@ -12,6 +14,32 @@ const Home: NextPage = () => {
     title: 'What is Lorem Ipsum?',
     id: 1,
   };
+
+  const postData = {
+    title: '모르겟ㅇ어요ㅠㅠㅠ',
+    content: '이거 어떻게 해요 이거 어떻게 해요 이거 어떻게 해요 이거 어떻게 해요',
+    category_id: 2,
+    tags: [
+      {
+        id: 1,
+        name: 'javascript',
+      },
+      {
+        id: 2,
+        name: 'nestjs',
+      },
+    ],
+  };
+  const userId = '123';
+
+  const data = postQnA(postData, userId);
+  const category = getCategory(1);
+  const tags = getTags(1);
+
+  console.log(data);
+  console.log('Category: ', category);
+  console.log('tags: ', tags);
+
   return (
     <div className="w-full">
       <Head>
