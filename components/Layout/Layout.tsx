@@ -7,7 +7,7 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   return (
-    <div className="grid grid-cols-layout min-h-screen h-full w-screen bg-gray">
+    <div className="grid grid-cols-layout min-h-screen h-full w-screen bg-[#0E1217]">
       <Sidebar />
       {/* MAIN : pages */}
       <div className="flex flex-col items-center mt-24 mx-20 ">
