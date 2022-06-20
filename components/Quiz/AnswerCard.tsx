@@ -1,15 +1,20 @@
 import IconText from './IconText';
 import { TextArea } from '@components/Form';
-import useInput from 'utils/hooks/useInput';
+
 interface Props {
   className?: string;
   value: string | number;
   onChange: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
+  error: string;
+  
 }
 
-const AnswerCard = ({className, value, onChange}: Props) => {
+const AnswerCard = ({className, value, onChange, error}: Props) => {
   return (
-    <div className={`bg-gray w-full p-6 rounded-large ${className}`}>
+    <div className={`
+      bg-gray w-full p-6 rounded-large ${className}
+      ${error ? 'border-error' : 'border-transparent'}
+    `}>
       <IconText src="/assets/images/quiz/explanation.png" className='mb-5'>
         <p className='font-bold text-xl'>Answer</p>
       </IconText>
