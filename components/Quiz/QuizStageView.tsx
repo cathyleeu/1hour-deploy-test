@@ -7,26 +7,19 @@ import { RandomQuizList, generateRandom } from 'lib/utils';
 import Modal from '@components/common/modal';
 import Button from '@components/common/button';
 import { QuestionCard, AnswerCard, QuizTimer } from '@components/Quiz';
+import {useQuiz, QuestionType} from '@components/Quiz/QuizContext';
 
 const QUIZ_NUM = 10;
 
-const random = generateRandom(RandomQuizList.length, QUIZ_NUM);
 
-const QuizStageView = ({
-  stage,
-  setStage,
-  limit
-}: {
-  stage: number;
-  setStage: (stage:number) => void; // TODO 
-  limit: number;
-}) => {
-  const {expired, seconds, minutes, setCountdown, startCountdown, clearCountdown} = useCountdown(limit);
+const QuizStageView = () => {
+  const {currentStage, goNextStage, timer, errorMessage, setError, questions, updataAnswer, updatePhase } = useQuiz();
+  const {expired, seconds, minutes, setCountdown, startCountdown, clearCountdown} = useCountdown(timer);
+  
   const answer = useInput('');
-  const [error, setError] = useState('');
   const [expiredMessage, setExpiredMessage] = useState('시간 안에 풀지 못했네요. 다음문제로 넘어갑니다.');
   const [isOpen, setIsOpen] = useState(false);
-  const [question, setQuestion] = useState('')
+  const [quiz, setQuiz] = useState<QuestionType>();
 
   const handleNextStage = async() => {
     const isAvailable = (answer.attrs.value as string).length > 10;
@@ -38,29 +31,39 @@ const QuizStageView = ({
       setTimeout(() => {
         setIsOpen(false);
         setExpiredMessage('');
-        setStage(stage + 1);
+        updataAnswer!({
+          id: quiz!.id,
+          content: answer.attrs.value as string
+        })
+        goNextStage!();
       }, 3000);
       return;
     }
 
     if(!isAvailable) {
       // 글자수가 미흡한 상황
-      setError('최소 10자 이상 입력해주세요.');
+      setError!('최소 10자 이상 입력해주세요.');
       setTimeout(() => {
-        setError('')
+        setError!('')
       }, 3000)
       return;
     }
 
     // TODO : add post api 
-
+    updataAnswer!({
+      id: quiz!.id,
+      content: answer.attrs.value as string
+    })
 
     // 단계가 끝났을 때 
-    if(stage > QUIZ_NUM) {
+    if(currentStage + 1 > QUIZ_NUM) {
+      console.log(currentStage, '????');
+      
       clearCountdown();
+      updatePhase!('FINISHED');
     }
     
-    setStage(stage + 1);
+    goNextStage!();
     return;
   }
   const handleErrorModal = () => {
@@ -68,9 +71,8 @@ const QuizStageView = ({
   }
 
   useEffect(() => {
-    // random[stage - 1]
-    setQuestion(RandomQuizList[random[stage -1] - 1]?.question);
-    setCountdown(limit * 60 * 1000);
+    setQuiz(questions[currentStage]);
+    setCountdown(timer * 60 * 1000);
   }, [])
 
   useEffect(() => {
@@ -83,11 +85,11 @@ const QuizStageView = ({
   useEffect(() => {
     answer.setValue('');
     clearCountdown();
-    if(stage <= QUIZ_NUM) {
-      setQuestion(RandomQuizList[random[stage -1] - 1]?.question);
-      startCountdown(limit * 60 * 1000);
+    if(currentStage +1 <= QUIZ_NUM) {
+      setQuiz(questions[currentStage]);
+      startCountdown(timer * 60 * 1000);
     }
-  }, [stage])
+  }, [currentStage])
   
   return (
     <section>
@@ -101,11 +103,11 @@ const QuizStageView = ({
       <div className='flex flex-col gap-4 relative'>
         <QuestionCard
           maxStage={QUIZ_NUM} 
-          stage={stage} 
-          question={question}
+          stage={currentStage + 1} 
+          question={quiz?.question}
         />
-        <AnswerCard {...answer.attrs} error={error} />
-        {error ? <span className='text-error text-base absolute right-0 -bottom-8 text-right'>{ error }</span> : null }
+        <AnswerCard {...answer.attrs} error={errorMessage} />
+        {errorMessage ? <span className='text-error text-base absolute right-0 -bottom-8 text-right'>{ errorMessage }</span> : null }
         <Button
           className='font-bold p-4 px-6 self-end'
           onClick={handleNextStage}

@@ -1,7 +1,7 @@
 import IconText from './IconText';
 
 interface Props {
-  question: string;
+  question?: string;
   stage: number;
   maxStage: number;
   className?: string;
