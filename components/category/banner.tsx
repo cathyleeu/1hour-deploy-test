@@ -5,13 +5,17 @@ const CategoryBanner = ({ data }: { data: CategoryValue }) => {
   const { content, src, title } = data;
 
   return (
-    <header className="bg-gray rounded-[25px] text-white relative h-[254px] flex justify-between items-center px-[50px] ">
-      <section className="flex flex-col flex-1 ">
-        <h1 className="font-poppins text-[50px] font-extrabold">{title}</h1>
+    <header className="
+      bg-gray 
+      w-full flex flex-wrap justify-center items-center
+      rounded-large px-6 lg:px-10 py-6 
+    ">
+      <section className="w-full md:w-1/2">
+        <h1 className="font-poppins text-[50px] text-white font-extrabold">{title}</h1>
         <p>{content}</p>
       </section>
-      <section className="w-[350px] h-full">
-        <Image src={src} width={350} height={254} alt="category" className="w-full" />
+      <section className="relative w-[350px] h-[254px]">
+        <Image src={src} layout="fill" objectFit="contain" priority alt="category" />
       </section>
     </header>
   );
