@@ -5,8 +5,12 @@ type Props = {};
 
 const BookmarkBanner = (props: Props) => {
   return (
-    <div className="w-full min-w-[700px] h-[268px] bg-[#FC8124] text-white rounded-[25px] px-[40px] py-[27px] flex items-center justify-around ">
-      <section>
+    <div className="
+        bg-orange
+        w-full flex flex-wrap justify-center items-center
+        rounded-large px-6 lg:px-10 py-6 
+      ">
+      <section className="w-full md:w-1/2">
         <h1 className="font-bold text-[55px] leading-[60px]">
           <span className="text-black">{`#UserName`}</span>
           의
@@ -19,8 +23,8 @@ const BookmarkBanner = (props: Props) => {
           복습을 시작해보세요.
         </p>
       </section>
-      <section className="w-[244px] h-[248px]">
-        <Image src="/assets/images/banner/bookmark.png" width={244} height={248} alt="banner" />
+      <section className="relative w-[244px] h-[248px]">
+        <Image src="/assets/images/banner/bookmark.png" layout="fill" objectFit="contain" priority alt="banner" />
       </section>
     </div>
   );
