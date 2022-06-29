@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
-import useInput from 'utils/hooks/useInput';
-import useCountdown from 'utils/hooks/useCountdown';
-
-import { RandomQuizList, generateRandom } from 'lib/utils';
+import { useCountdown, useInput } from 'lib/hooks';
 
 import Modal from '@components/common/modal';
 import Button from '@components/common/button';
 import { QuestionCard, AnswerCard, QuizTimer } from '@components/Quiz';
-import {useQuiz, QuestionType} from '@components/Quiz/QuizContext';
+import { useQuiz, QuestionType } from '@components/Quiz/QuizContext';
 
 const QUIZ_NUM = 10;
 

@@ -1,4 +1,4 @@
-import { padStartTime } from 'utils/timecheck';
+import { padStartTime } from 'lib/timecheck';
 
 const QuizTimer = ({
   seconds, 
