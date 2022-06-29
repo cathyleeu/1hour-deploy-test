@@ -25,8 +25,18 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <title>1Hour</title>
         <meta name="description" content="개발자를 위한 기술 면접 사이트" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+        <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon.png" />
+        <link rel="manifest" href="/assets/favicon/manifest.json" />
         
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="og:title" content="1Hour" />
+        <meta name="og:description" content="개발자를 위한 기술 면접 사이트" />
+        <meta name="og:type" content="website" />
+        <meta name="og:url" content={location.origin} />
+        <meta name="og:image" content="/assets/image/og-image.png" />
+
       </Head>
       <CssBaseline />
       <ResponsiveProvider>
