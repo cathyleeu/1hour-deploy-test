@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import questions from '../dummy/questions.json';
+import questions from '../../dummy/questions.json';
 
-export const useQuestionCard = () => {
+const useQuestionCard = () => {
   const [show, setShow] = useState(false);
 
   const onToggleShow = () => setShow((p) => !p);
@@ -12,3 +12,5 @@ export const useQuestionCard = () => {
 
   return { show, onToggleShow, onToggleBookmark };
 };
+
+export default useQuestionCard;

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { getTimeDifference, TimeDifferenceType} from "../timecheck";
+import { getTimeDifference, TimeDifferenceType } from "../timecheck";
+
 
 export interface UseCountdownReturns {
   expired: boolean;

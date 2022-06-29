@@ -7,7 +7,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head></Head>
-        <body>
+        <body className="bg-background">
           <Main />
           <NextScript />
         </body>

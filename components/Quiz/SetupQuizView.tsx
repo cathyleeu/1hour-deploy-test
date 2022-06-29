@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 
-import useInput from 'utils/hooks/useInput';
+import { useInput } from 'lib/hooks';
 import { IconText, TimerInput } from '.';
 import Button from '@components/common/button';
-import {useQuiz} from '@components/Quiz/QuizContext';
+import { useQuiz } from '@components/Quiz/QuizContext';
 
 const MIN_MINUTES = 1;
 const MAX_MINUTES = 7;

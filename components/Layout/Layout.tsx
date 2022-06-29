@@ -1,18 +1,25 @@
 import Sidebar from './Sidebar';
-import Navbar from './Navbar';
+import Header from './Header';
+import Container from './Container';
+import {useResizeObserver} from 'lib/hooks'
 
 interface Props {
   children: React.ReactNode;
 }
 
 export default function Layout({ children }: Props) {
+  const [ref] = useResizeObserver();
   return (
-    <div className="grid grid-cols-layout min-h-screen h-full w-screen bg-[#0E1217]">
+    <div 
+      ref={ref}
+      className="min-h-screen h-full w-screen"
+    >
       <Sidebar />
-      {/* MAIN : pages */}
-      <div className="flex flex-col items-center mt-24 mx-20 ">
-        {/* <Navbar /> */}
-        {children}
+      <div className="w-full lg:w-[calc(100%-300px)] lg:ml-[300px] h-screen overflow-y-scroll">
+        <Container tag='main' className='py-8'>
+          <Header />
+            {children}
+        </Container>
       </div>
     </div>
   );

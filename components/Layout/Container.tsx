@@ -1,11 +1,13 @@
 interface Props {
+  className?: string;
   children: React.ReactNode;
+  tag?: keyof JSX.IntrinsicElements;
 }
 
-export default function Container({ children }: Props) {
+export default function Container({ children, className, tag: Wrapper = 'div' }: Props) {
   return (
-    <div className="h-full w-[90%] m-auto py-4">
+    <Wrapper className={`h-full w-full px-8 max-w-[1024px] m-auto ${className} `}>
       {children}
-    </div>
+    </Wrapper>
   );
 }
