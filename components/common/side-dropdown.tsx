@@ -1,8 +1,9 @@
-import ArrowIcon from './arrow-icon';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
-import { useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
+
+import { useResponsiveContext } from '@components/Layout/ResponsiveContext'
+import ArrowIcon from './arrow-icon';
 
 interface category {
   name: string;
@@ -17,10 +18,14 @@ interface Props {
 const SideDropdown = ({ src, title, list }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedList, setSelectedList] = useState<string>('');
+  const { IsMobileScreen, setIsMenuOpen } = useResponsiveContext();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const handleClick = (e: any) => {
     const target = e.target as Element;
     setSelectedList(target.innerHTML);
+    if(IsMobileScreen) {
+      setIsMenuOpen(false);
+    }
   };
 
   useEffect(() => {
