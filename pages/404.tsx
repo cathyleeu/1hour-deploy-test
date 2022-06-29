@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function ErrorPage() {
   return (
-    <main className="w-screen h-screen bg-[#0E1217]">
+    <main className="w-screen h-screen">
       <section className="absolute w-full h-full pl-14 left-0 top-0 pt-[10%]">
         <Link href="/" passHref>
           <div className="relative w-[20%] h-[10%]">
