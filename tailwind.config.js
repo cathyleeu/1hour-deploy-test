@@ -21,6 +21,7 @@ module.exports = {
           light: 'var(--color-gray-light)',
         },
         orange: 'var(--color-orange)',
+        background: 'var(--color-background)'
       },
       backgroundImage: {
         'logo-img': "url('/assets/images/sidebar/logo.svg')",
