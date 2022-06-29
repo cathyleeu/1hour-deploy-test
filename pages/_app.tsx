@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <meta name="og:description" content="개발자를 위한 기술 면접 사이트" />
         <meta name="og:type" content="website" />
         <meta name="og:url" content="https://1hour.vercel.app" />
-        <meta name="og:image" content="/assets/image/og-image.png" />
+        <meta name="og:image" content="/assets/images/og-image.png" />
 
       </Head>
       <CssBaseline />
