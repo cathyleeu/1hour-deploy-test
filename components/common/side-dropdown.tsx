@@ -41,13 +41,13 @@ const SideDropdown = ({ src, title, list }: Props) => {
       <div className={'flex flex-col items-center'}>
         {/* button */}
         <button
-          className={`flex items-center rounded-xl  mb-4 px-4 py-3.5 w-[244px] h-12 bg-${
+          className={`flex items-center rounded-xl px-4 py-3.5 w-full h-12 bg-${
             isOpen ? 'blue' : 'gray'
           } text-base font-bold `}
           onClick={() => setIsOpen(!isOpen)}
         >
           <Image src={src} alt="학습하기" width={23} height={22} />
-          <p className={'mx-3 w-36 text-left'}>{title}</p>
+          <p className={'mx-3 w-36 text-left text-white'}>{title}</p>
           <ArrowIcon color={'white'} width={13} height={6} />
         </button>
 
@@ -58,7 +58,7 @@ const SideDropdown = ({ src, title, list }: Props) => {
               <Link href={data.params} key={id}>
                 <li
                   onClick={handleClick}
-                  className={`text-${selectedList === data.name ? 'blue' : 'white'} h-11 cursor-pointer`}
+                  className={`text-${selectedList === data.name ? 'blue' : 'white'} pt-4 cursor-pointer`}
                 >
                   {data.name}
                 </li>
