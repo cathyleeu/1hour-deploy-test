@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import questions from '../../dummy/questions.json';
 
 const useQuestionCard = () => {
   const [show, setShow] = useState(false);
