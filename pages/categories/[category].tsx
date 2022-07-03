@@ -13,7 +13,6 @@ const Category = () => {
   const { category } = router.query;
 
   const tagList = useMemo(() => tagByCategory[category as CategoryKey], [category]);
-
   const filteredQuestions = questions.filter((question) => question.category === category);
 
   return (
