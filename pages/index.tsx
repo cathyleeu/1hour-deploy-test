@@ -5,32 +5,6 @@ import QuestionCard from '@components/common/question-card';
 import questions from '../dummy/questions.json';
 
 const Home: NextPage = () => {
-  // const postData = {
-  //   title: '모르겟ㅇ어요ㅠㅠㅠ',
-  //   content: '이거 어떻게 해요 이거 어떻게 해요 이거 어떻게 해요 이거 어떻게 해요',
-  //   category_id: 2,
-  //   tags: [
-  //     {
-  //       id: 1,
-  //       name: 'javascript',
-  //     },
-  //     {
-  //       id: 2,
-  //       name: 'nestjs',
-  //     },
-  //   ],
-  // };
-  // const userId = '123';
-
-  // const category = getCategory(1);
-  // const tags = getTags(1);
-  // const handleClick = () => {
-  //   postQnA(postData, userId);
-  // };
-
-  // console.log('Category: ', category);
-  // console.log('tags: ', tags);
-
   return (
     <div className="w-full">
       {/* <button onClick={handleClick}>data</button> */}
