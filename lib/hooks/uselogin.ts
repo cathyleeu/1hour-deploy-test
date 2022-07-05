@@ -1,7 +1,13 @@
+import { useState } from 'react';
+
 /** check user login */
 export const useLogin = () => {
+  const [isOpenLogin, setIsOpenLogin] = useState(false);
+
+  const toggleOpenLogin = () => setIsOpenLogin((p) => !p);
+
   //TODO: check user login
-  const isAuthorize = true;
+  const isAuthorize = false;
 
   const login = () => {
     //TODO: login
@@ -11,7 +17,7 @@ export const useLogin = () => {
     //TODO: logout
   };
 
-  return { isAuthorize, login, logout };
+  return { isOpenLogin, isAuthorize, login, logout, toggleOpenLogin };
 };
 
 export default useLogin;
