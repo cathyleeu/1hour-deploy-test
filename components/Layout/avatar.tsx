@@ -22,7 +22,7 @@ const Avatar = () => {
         className="grid place-items-center w-[60px] h-[60px] rounded-full relative overflow-hidden"
         onClick={(e) => handleTogglePopup(e)}
       >
-        <Image src={`${session?.user?.image}`} alt="avatar" layout="fill" objectFit="contain" />
+        <Image src={session?.user?.image ?? ''} alt="avatar" layout="fill" objectFit="contain" />
       </button>
       {isOpen && (
         <section className={styles.arrow} ref={ref}>

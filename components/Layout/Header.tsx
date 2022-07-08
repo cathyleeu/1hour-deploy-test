@@ -4,7 +4,7 @@ import { useResponsiveContext } from '@components/Layout/ResponsiveContext';
 import Avatar from './avatar';
 import { useLogin } from 'lib/hooks';
 import dynamic from 'next/dynamic';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 
 const LoginModal = dynamic(() => import('components/Layout/login-modal'));
 
@@ -16,8 +16,6 @@ export default function Header({ children }: BaseProps) {
   const openSidebar = () => {
     setIsMenuOpen(true);
   };
-
-  console.log('session', session);
 
   return (
     <>

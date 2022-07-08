@@ -20,8 +20,6 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) {
   const noLayout = Component.noLayout;
 
-  console.log('pageProps', pageProps);
-
   return (
     <>
       <Head>
