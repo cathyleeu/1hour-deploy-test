@@ -6,6 +6,7 @@ import questions from '../dummy/questions.json';
 const Bookmark = () => {
   // TODO: login auth
   const filteredQuestions = questions.filter((question) => question.isBookmark);
+
   return (
     <main className="w-full h-full">
       <BookmarkBanner />

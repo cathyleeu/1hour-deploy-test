@@ -8,7 +8,7 @@ export const useLogin = () => {
   const { data: session } = useSession();
 
   const toggleOpenLogin = () => setIsOpenLogin((p) => !p);
-  const login = () => signIn();
+  const login = () => signIn('github');
   const logout = () => signOut();
 
   useEffect(() => {

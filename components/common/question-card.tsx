@@ -47,11 +47,12 @@ const QuestionCard = ({ description, isBookmark, tags, title, id }: Props) => {
           />
         )}
       </section>
-      <section className="border-t border-slate-300 pt-[20px] flex align-middle justify-center gap-[7px]">
-        <button className="text-white" onClick={onToggleShow}>
-          자세히보기
-        </button>
-        <ArrowIcon color="white" width={17} height={8} className={`cursor-pointer`} isToggle={show} />
+      <section
+        className="border-t border-slate-300 pt-[20px] flex align-middle justify-center gap-[7px] cursor-pointer"
+        onClick={onToggleShow}
+      >
+        <button className="text-white">자세히보기</button>
+        <ArrowIcon color="white" width={17} height={8} isToggle={show} />
       </section>
     </Card>
   );
