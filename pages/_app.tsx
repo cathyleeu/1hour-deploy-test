@@ -17,7 +17,7 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) {
   const noLayout = Component.noLayout;
 
   console.log('pageProps', pageProps);
@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
       <CssBaseline />
       <ResponsiveProvider>
-        <SessionProvider session={pageProps.session}>
+        <SessionProvider session={session}>
           {noLayout ? (
             <Component {...pageProps} />
           ) : (

@@ -9,7 +9,7 @@ const Avatar = () => {
   const ref = useClickOutside(() => {
     setIsOpen(false);
   });
-  const { authorize, logout } = useLogin();
+  const { logout, session } = useLogin();
 
   const handleTogglePopup = (e: MouseEvent<HTMLButtonElement>) => {
     // e.stopPropagation();
@@ -19,11 +19,10 @@ const Avatar = () => {
   return (
     <div className="relative flex justify-end" onClick={(e) => e.stopPropagation()}>
       <button
-        className="grid place-items-center bg-blue w-[60px] h-[60px] rounded-full relative"
+        className="grid place-items-center w-[60px] h-[60px] rounded-full relative overflow-hidden"
         onClick={(e) => handleTogglePopup(e)}
       >
-        <Image src={authorize.user.image} alt="avatar" width={21} height={25} />
-        {/* <Image src={`/assets/icons/avatar.svg`} alt="avatar" width={21} height={25} /> */}
+        <Image src={`${session?.user?.image}`} alt="avatar" layout="fill" objectFit="contain" />
       </button>
       {isOpen && (
         <section className={styles.arrow} ref={ref}>
