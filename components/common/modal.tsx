@@ -13,7 +13,6 @@ interface Props {
 const Modal = ({ children, isOpen, onClose }: Props) => {
   const ref = useClickOutside<HTMLDivElement>(() => {
     if (isOpen) {
-      console.log('clcik');
       onClose();
     }
   });
