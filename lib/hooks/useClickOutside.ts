@@ -16,7 +16,6 @@ export const useClickOutside = <T extends HTMLElement>(callback: () => void) => 
 
       if (container.current && e.target != null) {
         if (!container.current.contains(e.target as Node)) {
-          console.log('traget', e.target);
           savedCallback.current();
         }
       }

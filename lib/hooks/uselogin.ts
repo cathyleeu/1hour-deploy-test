@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 /** check user login */
 export const useLogin = () => {
@@ -6,18 +7,12 @@ export const useLogin = () => {
 
   const toggleOpenLogin = () => setIsOpenLogin((p) => !p);
 
-  //TODO: check user login
-  const isAuthorize = false;
+  const { data: authorize } = useSession();
 
-  const login = () => {
-    //TODO: login
-  };
+  const login = () => signIn();
+  const logout = () => signOut();
 
-  const logout = () => {
-    //TODO: logout
-  };
-
-  return { isOpenLogin, isAuthorize, login, logout, toggleOpenLogin };
+  return { isOpenLogin, authorize, login, logout, toggleOpenLogin };
 };
 
 export default useLogin;
