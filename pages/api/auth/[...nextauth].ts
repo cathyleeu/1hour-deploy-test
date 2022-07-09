@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 
-const options = {
+export const authOptions = {
   providers: [
     GitHubProvider({
       clientId: process.env.NEXTAUTH_ID,
@@ -11,4 +11,4 @@ const options = {
   ],
 };
 
-export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res, options);
+export default (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res, authOptions);

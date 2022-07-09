@@ -8,4 +8,7 @@ declare module 'next-auth' {
       image: string;
     };
   }
+  interface UserSession extends Session {
+    expires: string;
+  }
 }
