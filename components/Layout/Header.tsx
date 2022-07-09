@@ -1,17 +1,14 @@
-import { BaseProps } from 'types';
 import { Hamburger, Logo } from '@components/common/Icon';
 import { useResponsiveContext } from '@components/Layout/ResponsiveContext';
 import Avatar from './avatar';
 import { useLogin } from 'lib/hooks';
 import dynamic from 'next/dynamic';
-import { useSession } from 'next-auth/react';
 
 const LoginModal = dynamic(() => import('components/Layout/login-modal'));
 
-export default function Header({ children }: BaseProps) {
-  const { data: session } = useSession();
+export default function Header() {
   const { IsMobileScreen, setIsMenuOpen } = useResponsiveContext();
-  const { isOpenLogin, toggleOpenLogin } = useLogin();
+  const { isOpenLogin, toggleOpenLogin, user } = useLogin();
 
   const openSidebar = () => {
     setIsMenuOpen(true);
@@ -30,7 +27,7 @@ export default function Header({ children }: BaseProps) {
           <Logo className="h-8" />
         </div>
         <div className="ml-auto">
-          {session ? (
+          {user ? (
             <Avatar />
           ) : (
             <p
