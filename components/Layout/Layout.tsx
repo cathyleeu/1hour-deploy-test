@@ -9,7 +9,6 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   const [ref] = useResizeObserver();
-  // const { isLogin } = useLogin();
 
   return (
     <div ref={ref} className="min-h-screen h-full w-screen">

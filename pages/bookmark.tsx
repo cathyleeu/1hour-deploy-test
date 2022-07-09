@@ -1,10 +1,12 @@
 import QuestionCard from '@components/common/question-card';
 import SmallHeader from '@components/common/small-header';
 import BookmarkBanner from 'components/bookmark/banner';
+import { useLogin } from 'lib/hooks';
 import questions from '../dummy/questions.json';
 
 const Bookmark = () => {
   // TODO: login auth
+  const { user } = useLogin();
   const filteredQuestions = questions.filter((question) => question.isBookmark);
 
   return (
