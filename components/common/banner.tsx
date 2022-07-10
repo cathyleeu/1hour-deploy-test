@@ -11,21 +11,23 @@ export const MainBanner = () => {
       "
     >
       <div className="w-full md:w-1/2">
-        <p className="text-white text-xl lg:text-2xl">생각만 해도 어려운 기술면접, 😢</p>
+        <p className="text-white text-base lg:text-2xl">생각만 해도 어려운 기술면접, 😢</p>
         <h1
           className="
-          text-white font-black text-5xl leading-relaxed"
+          text-white font-black text-4xl lg:text-5xl mg:leading-relaxed my-2"
         >
-          <p>이제 원아우어로</p>
-          <p
-            className="
-            relative
-            before:absolute
-            before:content-[' ']
-            before:border-[3px] before:border-white before:w-[100px] before:top-[50%]"
-          >
-            <span className="ml-[110px]">시작하세요!</span>
+          <p className='mb-1'>
+            이제 
+            <div className='relative w-[6ch] h-[1.4ch] text-center inline-block'>
+              <div className='absolute inset-y-0 top-1 text-highlight bg-[#05479F] w-full h-full'></div>
+              <span className='relative z-10'>원아우어</span>
+            </div>
+            로
           </p>
+          <div className="flex items-center">
+            <div className='hidden lg:block h-[3px] w-[100px] bg-white mr-4'></div>
+            <p>시작하세요!</p>
+          </div>
         </h1>
         <p className="text-white text-base lg:text-lg">
           코 앞에 닥친 면접이 걱정된다면? <br />
