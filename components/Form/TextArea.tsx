@@ -4,23 +4,20 @@ interface TextAreaForwardRefProps extends React.TextareaHTMLAttributes<HTMLTextA
   // children: React.ReactNode;
   className?: string;
   disabled?: boolean;
-  error?:string;
+  error?: string;
 }
 
-
-function TextArea(
-  props: TextAreaForwardRefProps, 
-  ref: React.ForwardedRef<HTMLTextAreaElement>
-) {
+function TextArea(props: TextAreaForwardRefProps, ref: React.ForwardedRef<HTMLTextAreaElement>) {
   return (
     <textarea
       {...props}
-      className={`
-      ${ props.error ? 'border-error' : undefined }`}
+      // 수정 전 by.디노
+      // className={`
+      // ${ props.error ? 'border-error' : undefined }`}
+      className={`${props.error ? 'border-error' : undefined} ${props.className}`}
       ref={ref}
     />
-  )
+  );
 }
-
 
 export default React.forwardRef<HTMLTextAreaElement, TextAreaForwardRefProps>(TextArea);
