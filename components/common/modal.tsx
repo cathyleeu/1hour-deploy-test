@@ -1,15 +1,22 @@
 import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import { useClickOutside } from 'lib/hooks';
 
 const Portal = dynamic(() => import('./portal'), { ssr: false });
 
 interface Props {
   children: React.ReactNode;
   isOpen: boolean;
-  onClose?: () => void;
+  onClose: () => void;
 }
 
 const Modal = ({ children, isOpen, onClose }: Props) => {
+  const ref = useClickOutside<HTMLDivElement>(() => {
+    if (isOpen) {
+      onClose();
+    }
+  });
+
   useEffect(() => {
     document.body.style.overflowY = isOpen ? 'hidden' : '';
   }, [isOpen]);
@@ -24,9 +31,10 @@ const Modal = ({ children, isOpen, onClose }: Props) => {
       <div
         className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 
            bg-black border-blue border-2 rounded-large p-8"
+        ref={ref}
         // bg랑 border 바뀐 모달 디자인으로 조금 수정했습니다!
       >
-        <div className="w-full" onClick={onClose}>
+        <div className="w-full cursor-pointer" onClick={onClose}>
           <svg
             className="ml-auto"
             width="22"

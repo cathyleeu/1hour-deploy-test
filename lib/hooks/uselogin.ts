@@ -1,17 +1,23 @@
+import { useEffect, useState } from 'react';
+import { useSession, signIn, signOut } from 'next-auth/react';
+
 /** check user login */
 export const useLogin = () => {
-  //TODO: check user login
-  const isAuthorize = true;
+  const [isOpenLogin, setIsOpenLogin] = useState(false);
 
-  const login = () => {
-    //TODO: login
+  const { data: user } = useSession();
+
+  const toggleOpenLogin = () => setIsOpenLogin((p) => !p);
+  const login = () => signIn('github');
+  const logout = () => signOut();
+
+  return {
+    isOpenLogin,
+    user,
+    login,
+    logout,
+    toggleOpenLogin,
   };
-
-  const logout = () => {
-    //TODO: logout
-  };
-
-  return { isAuthorize, login, logout };
 };
 
 export default useLogin;

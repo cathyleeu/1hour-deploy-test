@@ -6,7 +6,7 @@ export default function ErrorPage() {
     <main className="w-screen h-screen">
       <section className="absolute w-full h-full pl-14 left-0 top-0 pt-[10%]">
         <Link href="/" passHref>
-          <div className="relative w-[20%] h-[10%]">
+          <div className="relative w-[20%] h-[10%] cursor-pointer">
             <Image src="/assets/images/sidebar/logo.svg" alt="logo" layout="fill" />
           </div>
         </Link>
