@@ -1,12 +1,15 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { Dispatch, memo, SetStateAction, useCallback, useEffect, useState } from 'react';
 import ArrowIcon from './arrow-icon';
 import Tag from './tag';
 
 interface Props {
   value: string[];
+  // 바깥으로 선택된 태그 리스트 배열을 빼려고 setState 함수를
+  // props로 추가했습니다. by 디노
+  setTags: Dispatch<SetStateAction<string[]>>;
 }
 
-const TagList = ({ value }: Props) => {
+const TagList = ({ value, setTags }: Props) => {
   const [selectedTag, setSelectedTag] = useState<string[]>([]);
   const [isFold, setIsFold] = useState(true);
 
@@ -14,6 +17,7 @@ const TagList = ({ value }: Props) => {
 
   const onClickTag = (tag: string) => {
     setSelectedTag((prev) => (prev.includes(tag) ? prev.filter((v) => v !== tag) : [...prev, tag]));
+    setTags((prev: string[]) => [...prev, tag]);
   };
 
   const onClickAll = () => {

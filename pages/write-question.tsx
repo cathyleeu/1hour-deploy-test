@@ -5,7 +5,7 @@ import TagList from '@components/common/tag-list';
 import { tagByCategory } from 'lib/utils';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { ChangeEvent, MutableRefObject, FocusEvent, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, MutableRefObject, MouseEvent, FocusEvent, useMemo, useRef, useState } from 'react';
 import SmallHeader from '@components/common/small-header';
 
 export interface QuestionPostDataProps {
@@ -18,6 +18,7 @@ export interface QuestionPostDataProps {
 const WriteQuestion: NextPage = () => {
   const [category_id, setCategory_id] = useState<string>('frontend');
   const [tags, setTags] = useState<string[]>([]);
+  console.log(tags);
 
   const titleRef = useRef<HTMLTextAreaElement | null>(null);
   const contentRef = useRef<HTMLTextAreaElement | null>(null);
@@ -43,7 +44,9 @@ const WriteQuestion: NextPage = () => {
     e.target.classList.remove('border-delete', 'border-blue', 'placeholder:text-delete');
   };
 
-  const cancleWrite = () => {};
+  const cancleWrite = (e: MouseEvent<HTMLButtonElement>) => {
+    console.log(e.target);
+  };
 
   const postQuestion = () => {};
 
@@ -93,6 +96,7 @@ const WriteQuestion: NextPage = () => {
               handleChange(returnEvent(e), contentRef);
             }}
             onBlur={handleBlur}
+            required
           />
         </div>
 
@@ -101,10 +105,10 @@ const WriteQuestion: NextPage = () => {
             <SmallHeader className="mb-[6px]" content="태그 선택" src="/assets/icons/tag.png" />
             <p className="mb-[16px]">관련된 태그를 선택해주세요. (최소 1개)</p>
           </div>
-          <div className="tags mb-[42px]">{category_id && <TagList value={tagList} getTagsList={setTags} />}</div>
+          <div className="tag--list mb-[42px]">{category_id && <TagList value={tagList} setTags={setTags} />}</div>
         </div>
         <div className="button--section self-end mb-[228px]">
-          <Button onClick={cancleWrite} className="w-[127px] h-[52px] text-[16px] font-bold bg-error">
+          <Button onClick={cancleWrite} className="w-[127px] h-[52px] text-[16px] font-bold bg-[#DA4D4D]">
             작성 취소
           </Button>
           <Button onClick={postQuestion} className="w-[127px] h-[52px] text-[16px] font-bold ml-[12px]">
