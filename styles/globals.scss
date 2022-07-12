@@ -69,3 +69,7 @@ input::-webkit-inner-spin-button {
 input[type=number]{
   -moz-appearance: textfield;
 }
+
+.text-highlight {
+  clip-path: polygon(6% 18%, 94% 1%, 92% 100%, 5% 100%);
+}
