@@ -16,16 +16,17 @@ export const MainBanner = () => {
           className="
           text-white font-black text-4xl lg:text-5xl mg:leading-relaxed my-2"
         >
-          <p className='mb-1'>
-            이제 
-            <div className='relative w-[6ch] h-[1.4ch] text-center inline-block'>
-              <div className='absolute inset-y-0 top-1 text-highlight bg-[#05479F] w-full h-full'></div>
-              <span className='relative z-10'>원아우어</span>
+          <div className='relative mb-1'>
+            <span>이제</span>
+            <div className='relative w-[6.5ch] h-[1.4ch] text-center inline-block'>
+              <div className='absolute inset-y-0 top-1 text-highlight bg-[#05479F] w-full h-full' />
+              <span className='relative z-10'>원아우어</span>              
             </div>
-            로
-          </p>
+            <span className='relative inline-block -ml-2.5'>로</span>
+          </div>
+
           <div className="flex items-center">
-            <div className='hidden lg:block h-[3px] w-[100px] bg-white mr-4'></div>
+            <div className='hidden lg:block h-[3px] w-[100px] bg-white mr-4' />
             <p>시작하세요!</p>
           </div>
         </h1>
