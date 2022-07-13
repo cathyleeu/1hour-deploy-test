@@ -10,7 +10,7 @@ const Button = ({ disable, className = '', children, onClick }: Props) => {
     <button
       onClick={onClick}
       className={`
-        text-base rounded-medium text-white
+        bg-blue text-base rounded-medium text-white
         ${disable ? 'opacity-30 pointer-events-none' : undefined}
         ${className}
       `}
