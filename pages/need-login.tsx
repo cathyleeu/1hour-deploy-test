@@ -18,7 +18,7 @@ export default function LoginPage() {
         <br />
         로그인이 필요해요.
       </h3>
-      <Button onClick={login} className="px-[20px] py-[15px] font-medium">
+      <Button onClick={login} className="px-[20px] py-[15px] font-medium bg-blue">
         GitHub로 로그인하기
       </Button>
     </main>
