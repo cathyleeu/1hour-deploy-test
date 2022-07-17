@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react';
-import { useCountdown, useInput } from 'lib/hooks';
+import { useLogin, useInput } from 'lib/hooks';
 
 import Modal from '@components/common/modal';
 import Button from '@components/common/button';
 import { QuestionCard, AnswerCard, QuizTimer } from '@components/Quiz';
 import { useQuiz, QuestionType } from '@components/Quiz/QuizContext';
+import QuizHeader from './QuizHeader';
 
 const QUIZ_NUM = 10;
 
 
 const QuizStageView = () => {
-  const {currentStage, goNextStage, timer, errorMessage, setError, questions, updataAnswer, updatePhase } = useQuiz();
-  const {expired, seconds, minutes, setCountdown, startCountdown, clearCountdown} = useCountdown(timer);
+  const {currentStage, goNextStage, timer, errorMessage, setError, questions, updataAnswer, updatePhase, expired } = useQuiz();
+  const { user } = useLogin();
   
   const answer = useInput('');
   const [expiredMessage, setExpiredMessage] = useState('시간 안에 풀지 못했네요. 다음문제로 넘어갑니다.');
@@ -54,9 +55,6 @@ const QuizStageView = () => {
 
     // 단계가 끝났을 때 
     if(currentStage + 1 > QUIZ_NUM) {
-      console.log(currentStage, '????');
-      
-      clearCountdown();
       updatePhase!('FINISHED');
     }
     
@@ -69,7 +67,6 @@ const QuizStageView = () => {
 
   useEffect(() => {
     setQuiz(questions[currentStage]);
-    setCountdown(timer * 60 * 1000);
   }, [])
 
   useEffect(() => {

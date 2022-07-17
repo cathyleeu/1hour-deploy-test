@@ -13,6 +13,7 @@ export interface QuestionType {
 }
 interface QuizContextType {
   timer: number;
+  expired: boolean;
   answers: AnswersType[];
   questions: QuestionType[];
   isGenerated: boolean;
@@ -35,6 +36,7 @@ interface QuizContextType {
   updatePhase?: (phase:'SETUP' | 'ONGOING' | 'FINISHED') => void;
   setError?: (errorMessage:string) => void;
   setCurrentStage?:(stage:number) => void;
+  setTimeExpired?:(expired: boolean) => void;
 }
 
 interface ActionType {
@@ -47,6 +49,7 @@ export const QuizContext = createContext<QuizContextType>({} as QuizContextType)
 
 const actions = {
   SET_TIMER: 'SET_TIMER',
+  SET_TIME_EXPIRED: 'SET_TIME_EXPIRED', 
   SET_PHASE:'SET_PHASE',
   SET_ERROR_MESSAGE: 'SET_ERROR_MESSAGE',
   SET_EXPIRED_MESSAGE: 'SET_EXPIRED_MESSAGE',
@@ -62,6 +65,7 @@ const actions = {
 
 const initialState = {
   timer: 0,
+  expired: false,
   answers: [],
   questions: [],
   isGenerated: false,
@@ -81,6 +85,8 @@ const reducer = (state:QuizContextType, { type, payload }:ActionType) => {
   switch (type) {
     case 'SET_TIMER': 
       return {...state, timer: payload.timer }
+    case 'SET_TIME_EXPIRED': 
+      return {...state, expired: payload.expired}
     case 'SET_CURRENT_STAGE':
       return {...state, currentStage: payload.currentStage}
     case 'SET_PHASE': 
@@ -132,6 +138,9 @@ const QuizProvider = ({ children }:{children: React.ReactChild}) => {
         },
         setTimer: (timer: number) => {
           dispatch({type: actions.SET_TIMER, payload: { timer }})
+        },
+        setTimeExpired: (expired: boolean) => {
+          dispatch({type: actions.SET_TIME_EXPIRED, payload: { expired }})
         },
         setError: (errorMessage:string) => {
           dispatch({type: actions.SET_ERROR_MESSAGE, payload: {errorMessage}})
