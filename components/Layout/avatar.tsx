@@ -1,4 +1,5 @@
 import { useClickOutside, useLogin } from 'lib/hooks';
+import Link from 'next/link';
 import Image from 'next/image';
 import { memo, useState, MouseEvent } from 'react';
 import styles from 'styles/avatar.module.scss';
@@ -27,8 +28,11 @@ const Avatar = () => {
       {isOpen && (
         <section className={styles.arrow} ref={ref}>
           <div className={`${styles.box} ${styles.active} rounded-t-[10px]`}>
-            <span>글 작성하기</span>
+            <Link href={'/write-question'}>
+              <span>글 작성하기</span>
+            </Link>
           </div>
+          
           <div className={`${styles.box} ${styles.active} rounded-b-[10px]`} onClick={logout}>
             <span>로그아웃</span>
           </div>
