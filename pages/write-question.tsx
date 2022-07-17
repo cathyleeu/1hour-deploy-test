@@ -9,6 +9,7 @@ import Select from '@components/common/Select';
 import { categoryBanner, tagByCategory } from 'lib/utils';
 import Modal from '@components/common/modal';
 import { useRouter } from 'next/router';
+import { useLogin } from '../lib/hooks';
 
 export interface QuestionPostDataProps {
   title: string;
@@ -19,7 +20,7 @@ export interface QuestionPostDataProps {
 
 const WriteQuestion: NextPage = () => {
   const router = useRouter();
-
+  const { user } = useLogin();
   const [category_id, setCategory_id] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -76,7 +77,7 @@ const WriteQuestion: NextPage = () => {
       <div className="flex flex-col">
         <div className="guide--section">
           <div className="text-[35px] text-[#FFFFFF] font-bold mt-[50px]">
-            <strong className="text-[#267FF5] mr-[4px]">{`#UserName`}</strong>님,
+            <strong className="text-[#267FF5] mr-[4px]">{user?.user.name}</strong>님,
             <br /> 기술 면접을 보면서 받았던
             <br /> 질문과 답을 작성해주세요.
           </div>
