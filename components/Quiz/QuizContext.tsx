@@ -93,6 +93,9 @@ const reducer = (state:QuizContextType, { type, payload }:ActionType) => {
       return {...state, answers: payload.answers }
     case 'GO_NEXT_STEP': 
       return {...state, currentStage: payload.currentStage }
+
+    case 'SET_ERROR_MESSAGE':
+      return {...state, errorMessage: payload.errorMessage}
     default:
       return state;
   }
