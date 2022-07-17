@@ -78,30 +78,31 @@ const QuizStageView = () => {
 
   useEffect(() => {
     answer.setValue('');
-    clearCountdown();
     if(currentStage +1 <= QUIZ_NUM) {
       setQuiz(questions[currentStage]);
-      startCountdown(timer * 60 * 1000);
     }
   }, [currentStage])
   
   return (
-    <section>
-      <div className='flex justify-between items-center mb-10'>
-        <p className='text-2xl font-bold'>
-          <span className='text-blue'>#UserName</span>을 위해 문제를 랜덤으로 총 10개를 준비했어요.<br/>
+    <section className='py-4'>
+      <QuizHeader>
+        <QuizHeader.Content>
+          <span className='text-blue'>{user ? user.user.name : '#UserName'}</span>을 위해 문제를 랜덤으로 총 {QUIZ_NUM}개를 준비했어요.<br/>
           문제를 풀며 자가진단을 해보세요!
-        </p>
-        <QuizTimer seconds={seconds} minutes={minutes} />
-      </div>
+        </QuizHeader.Content>
+        <QuizHeader.Side>
+          <QuizTimer timer={timer} currentStage={currentStage}/>
+        </QuizHeader.Side>
+      </QuizHeader>
+
       <div className='flex flex-col gap-4 relative'>
         <QuestionCard
           maxStage={QUIZ_NUM} 
           stage={currentStage + 1} 
           question={quiz?.question}
         />
-        <AnswerCard {...answer.attrs} error={errorMessage} />
         {errorMessage ? <span className='text-error text-base absolute right-0 -bottom-8 text-right'>{ errorMessage }</span> : null }
+        <AnswerCard {...answer.attrs} error={errorMessage} />
         <Button
           className='font-bold p-4 px-6 self-end'
           onClick={handleNextStage}
