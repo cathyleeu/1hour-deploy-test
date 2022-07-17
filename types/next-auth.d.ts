@@ -6,6 +6,8 @@ declare module 'next-auth' {
       name: string;
       email: string;
       image: string;
+      id: string;
+      token: string;
     };
   }
   interface UserSession extends Session {

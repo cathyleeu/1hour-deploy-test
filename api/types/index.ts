@@ -1,9 +1,9 @@
 export enum CategoryId {
   FrontEnd = 1,
-  BackEnd,
-  DevOps,
-  Mobile,
-  DataScience,
+  BackEnd = 2,
+  DevOps = 3,
+  Mobile = 4,
+  DataScience = 5,
 }
 
 export interface Category {
