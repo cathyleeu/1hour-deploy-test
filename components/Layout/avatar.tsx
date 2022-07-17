@@ -1,19 +1,20 @@
 import { useClickOutside, useLogin } from 'lib/hooks';
 import Link from 'next/link';
 import Image from 'next/image';
-import { memo, useState, MouseEvent } from 'react';
+import { memo, useState } from 'react';
 import styles from 'styles/avatar.module.scss';
+import { useRouter } from 'next/router';
 
 const Avatar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const { logout, user } = useLogin();
 
   const ref = useClickOutside(() => {
     setIsOpen(false);
   });
-  const { logout, user } = useLogin();
 
-  const handleTogglePopup = (e: MouseEvent<HTMLButtonElement>) => {
-    // e.stopPropagation();
+  const handleTogglePopup = () => {
     setIsOpen(!isOpen);
   };
 
@@ -21,18 +22,18 @@ const Avatar = () => {
     <div className="relative flex justify-end" onClick={(e) => e.stopPropagation()}>
       <button
         className="grid place-items-center w-[60px] h-[60px] rounded-full relative overflow-hidden"
-        onClick={(e) => handleTogglePopup(e)}
+        onClick={handleTogglePopup}
       >
         <Image src={user?.user?.image ?? ''} alt="avatar" layout="fill" objectFit="contain" />
       </button>
       {isOpen && (
-        <section className={styles.arrow} ref={ref}>
-          <div className={`${styles.box} ${styles.active} rounded-t-[10px]`}>
-            <Link href={'/write-question'}>
-              <span>글 작성하기</span>
-            </Link>
+        <section className={styles.arrow} ref={ref} onClick={handleTogglePopup}>
+          <div
+            className={`${styles.box} ${styles.active} rounded-t-[10px]`}
+            onClick={() => router.push('/write-question')}
+          >
+            <span>글 작성하기</span>
           </div>
-          
           <div className={`${styles.box} ${styles.active} rounded-b-[10px]`} onClick={logout}>
             <span>로그아웃</span>
           </div>

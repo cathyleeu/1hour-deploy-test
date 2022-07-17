@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useClickOutside } from 'lib/hooks';
+import { CSSProperties } from '@material-ui/core/styles/withStyles';
 
 const Portal = dynamic(() => import('./portal'), { ssr: false });
 
@@ -8,9 +9,11 @@ interface Props {
   children: React.ReactNode;
   isOpen: boolean;
   onClose: () => void;
+  className?: string;
+  style?: CSSProperties;
 }
 
-const Modal = ({ children, isOpen, onClose }: Props) => {
+const Modal = ({ children, isOpen, onClose, className, style }: Props) => {
   const ref = useClickOutside<HTMLDivElement>(() => {
     if (isOpen) {
       onClose();
@@ -29,8 +32,9 @@ const Modal = ({ children, isOpen, onClose }: Props) => {
     <Portal>
       <div className="fixed inset-0 z-40 bg-transparent" />
       <div
-        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 
-           bg-black border-blue border-2 rounded-large p-8"
+        className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 
+           bg-black border-blue border-2 rounded-large p-8 ${className}`}
+        style={style}
         ref={ref}
         // bg랑 border 바뀐 모달 디자인으로 조금 수정했습니다!
       >
