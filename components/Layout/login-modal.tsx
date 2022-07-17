@@ -15,7 +15,12 @@ const LoginModal = ({ isOpenLogin, toggleOpenLogin }: Props) => {
   return (
     <>
       {isOpenLogin && <div className="fixed inset-0 z-50 bg-background" />}
-      <Modal isOpen={isOpenLogin} onClose={toggleOpenLogin}>
+      <Modal
+        isOpen={isOpenLogin}
+        onClose={toggleOpenLogin}
+        className="border-none"
+        style={{ background: 'var(--color-gray)' }}
+      >
         <div className="text-white text-base grid place-items-center gap-5">
           <Logo className="h-20" />
           <h1 className="text-2xl font-bold">원아우어에 오신걸 환영해요!</h1>

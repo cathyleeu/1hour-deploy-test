@@ -1,5 +1,5 @@
-import { ChangeEvent, MutableRefObject, MouseEvent, FocusEvent, useMemo, useRef, useState } from 'react';
-import type { NextPage } from 'next';
+import { ChangeEvent, MutableRefObject, MouseEvent, FocusEvent, useMemo, useRef, useState, useEffect } from 'react';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Button from '@components/common/button';
 import { TextArea } from '@components/Form';
@@ -10,6 +10,8 @@ import { categoryBanner, tagByCategory } from 'lib/utils';
 import Modal from '@components/common/modal';
 import { useRouter } from 'next/router';
 import { useLogin } from '../lib/hooks';
+import { unstable_getServerSession } from 'next-auth';
+import { authOptions } from './api/auth/[...nextauth]';
 
 export interface QuestionPostDataProps {
   title: string;
@@ -168,3 +170,20 @@ const WriteQuestion: NextPage = () => {
 };
 
 export default WriteQuestion;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const user = await unstable_getServerSession(context.req, context.res, authOptions);
+
+  if (!user) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
