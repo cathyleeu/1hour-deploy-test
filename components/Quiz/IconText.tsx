@@ -7,8 +7,9 @@ interface Props {
 const IconText = ({src, children, className}:Props) => {
   return (
     <div className={`flex items-center ${className}`}>
-      <Image src={src} width={16} height={16} layout="fixed" />
-
+      <div className='w-[16px] h-[16px]'>
+        <Image src={src} width={16} height={16} layout="fixed" />
+      </div>
       <div className="ml-2">
         {children}
       </div>

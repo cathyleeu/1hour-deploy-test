@@ -12,7 +12,7 @@ interface Props {
 const AnswerCard = ({className, value, onChange, error}: Props) => {
   return (
     <div className={`
-      bg-gray w-full p-6 rounded-large ${className}
+      bg-gray w-full p-6 rounded-large border ${className}
       ${error ? 'border-error' : 'border-transparent'}
     `}>
       <IconText src="/assets/images/quiz/explanation.png" className='mb-5'>

@@ -1,12 +1,13 @@
 import {useQuiz} from '@components/Quiz/QuizContext';
-
+import withAuth, {withAuthProps} from 'lib/hooks/withAuth';
 import Button from '@components/common/button';
 import { QuestionCard, ResultCard } from '@components/Quiz';
+import QuizHeader from './QuizHeader';
 
 const QUIZ_NUM = 10;
 
 
-const QuizResultView = () => {
+const QuizResultView = ({auth}: withAuthProps) => {
   const {updatePhase, setCurrentStage, questions, answers} = useQuiz();
   const handleBackStage = () => {
     setCurrentStage!(0);
@@ -14,16 +15,18 @@ const QuizResultView = () => {
   }
 
   return (
-    <section>
-      <div className='flex justify-between items-center mb-10'>
-        <p className='text-2xl font-bold'>
-          <span className='text-blue'>#UserName</span>님, 문제 결과를 확인하세요.
-        </p>
-        <Button
-          className='font-bold p-4 px-6 self-end'
-          onClick={handleBackStage}
-        >다시 풀기</Button>
-      </div>
+    <>
+      <QuizHeader>
+        <QuizHeader.Content>
+          <span className='text-blue'>{auth ? auth.name : '#UserName'}</span>님, 문제 결과를 확인하세요.
+        </QuizHeader.Content>
+        <QuizHeader.Side>
+          <Button
+            className='font-bold p-4 px-6'
+            onClick={handleBackStage}
+          >다시 풀기</Button>
+        </QuizHeader.Side>
+      </QuizHeader>
       {
         questions.map((r, i) => (
           <div className='flex flex-col gap-4 relative my-12' key={i}>
@@ -32,15 +35,15 @@ const QuizResultView = () => {
               stage={i + 1} 
               question={r.question}
             />
-            <div className='flex gap-4'>
-              <ResultCard type="other" content={r.answer}/>
+            <div className='flex flex-col sm:flex-row gap-4'>
               <ResultCard type="answer" content={answers[i].content}/>
+              <ResultCard type="other" content={r.answer}/>
             </div>
           </div>
         ))
       }
-    </section>
+    </>
   )
 }
 
-export default QuizResultView;
+export default withAuth(QuizResultView);
