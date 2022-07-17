@@ -1,5 +1,5 @@
-import { ChangeEvent, MutableRefObject, MouseEvent, FocusEvent, useMemo, useRef, useState, useEffect } from 'react';
-import type { GetServerSideProps, NextPage } from 'next';
+import React, { ChangeEvent, MutableRefObject, FocusEvent, useMemo, useRef, useState, useCallback } from 'react';
+import type { NextPage } from 'next';
 import Head from 'next/head';
 import Button from '@components/common/button';
 import { TextArea } from '@components/Form';
@@ -9,9 +9,6 @@ import Select from '@components/common/Select';
 import { categoryBanner, tagByCategory } from 'lib/utils';
 import Modal from '@components/common/modal';
 import { useRouter } from 'next/router';
-import { useLogin } from '../lib/hooks';
-import { unstable_getServerSession } from 'next-auth';
-import { authOptions } from './api/auth/[...nextauth]';
 
 export interface QuestionPostDataProps {
   title: string;
@@ -22,10 +19,10 @@ export interface QuestionPostDataProps {
 
 const WriteQuestion: NextPage = () => {
   const router = useRouter();
-  const { user } = useLogin();
+
   const [category_id, setCategory_id] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const titleRef = useRef<HTMLTextAreaElement | null>(null);
   const contentRef = useRef<HTMLTextAreaElement | null>(null);
@@ -41,33 +38,36 @@ const WriteQuestion: NextPage = () => {
     return e;
   };
 
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>, ref: MutableRefObject<HTMLTextAreaElement | null>) => {
-    if (ref.current) ref.current.value = e.target.value;
-    if (ref.current?.value.length === 0) {
-      e.target.classList.add('focus:border-delete');
-      e.target.classList.add('placeholder:text-delete');
-    } else {
-      e.target.classList.remove('focus:border-delete');
-      e.target.classList.remove('placeholder:text-delete');
-    }
-  };
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLTextAreaElement>, ref: MutableRefObject<HTMLTextAreaElement | null>) => {
+      if (ref.current) ref.current.value = e.target.value;
+      if (ref.current?.value.length === 0) {
+        e.target.classList.add('focus:border-delete');
+        e.target.classList.add('placeholder:text-delete');
+      } else {
+        e.target.classList.remove('focus:border-delete');
+        e.target.classList.remove('placeholder:text-delete');
+      }
+    },
+    []
+  );
 
   const handleBlur = (e: FocusEvent<HTMLTextAreaElement, Element>) => {
     e.target.classList.remove('border-delete', 'border-blue', 'placeholder:text-delete');
   };
 
-  const cancleWrite = (e: MouseEvent<HTMLButtonElement>) => {
+  const cancleWrite = () => {
     if (titleRef.current?.value.length || contentRef.current?.value.length) {
-      setModalOpen(true);
+      setIsModalOpen(true);
     }
   };
 
   const postQuestion = () => {
-    console.log('API post');
+    console.log('post');
   };
 
   const closeModal = () => {
-    setModalOpen(false);
+    setIsModalOpen(false);
   };
 
   return (
@@ -79,7 +79,7 @@ const WriteQuestion: NextPage = () => {
       <div className="flex flex-col">
         <div className="guide--section">
           <div className="text-[35px] text-[#FFFFFF] font-bold mt-[50px]">
-            <strong className="text-[#267FF5] mr-[4px]">{user?.user.name}</strong>님,
+            <strong className="text-[#267FF5] mr-[4px]">{`#UserName`}</strong>님,
             <br /> 기술 면접을 보면서 받았던
             <br /> 질문과 답을 작성해주세요.
           </div>
@@ -100,7 +100,6 @@ const WriteQuestion: NextPage = () => {
             onChange={handleSelect}
             options={categories}
           />
-
           {/* title */}
           <TextArea
             className="w-full h-[76px] bg-[#1B2128] rounded-[25px] mt-[21px] text-[24px] "
@@ -143,22 +142,30 @@ const WriteQuestion: NextPage = () => {
         </div>
 
         <div className="button--section self-end mb-[228px]">
-          <Button onClick={cancleWrite} className="w-[127px] h-[52px] text-[16px] font-bold bg-delete">
+          <Button
+            className="w-[127px] h-[52px] text-[16px] 
+          font-bold bg-delete"
+            onClick={cancleWrite}
+          >
             작성 취소
           </Button>
-          <Button onClick={postQuestion} className="w-[127px] h-[52px] text-[16px] font-bold ml-[12px]">
+          <Button
+            onClick={postQuestion}
+            className="w-[127px] h-[52px] text-[16px] 
+          font-bold ml-[12px] bg-blue"
+          >
             업로드하기
           </Button>
         </div>
 
-        <Modal isOpen={modalOpen} onClose={closeModal}>
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
           <div className="w-full h-full border-white flex flex-col items-center">
             <p className="mt-[12px] mb-[16px]">페이지를 나가시면 작성된 내용이 저장되지 않아요.</p>
             <div className="button--group flex gap-[8px]">
               <Button className="w-[127px] h-[52px] text-[16px] font-bold bg-gray" onClick={closeModal}>
                 머무르기
               </Button>
-              <Button className="w-[127px] h-[52px] text-[16px] font-bold bg-delete" onClick={() => router.push('/')}>
+              <Button className="w-[127px] h-[52px] text-[16px] font-bold bg-error" onClick={() => router.push('/')}>
                 나가기
               </Button>
             </div>
@@ -170,20 +177,3 @@ const WriteQuestion: NextPage = () => {
 };
 
 export default WriteQuestion;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const user = await unstable_getServerSession(context.req, context.res, authOptions);
-
-  if (!user) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-};

@@ -36,7 +36,6 @@ const Modal = ({ children, isOpen, onClose, className, style }: Props) => {
            bg-black border-blue border-2 rounded-large p-8 ${className}`}
         style={style}
         ref={ref}
-        // bg랑 border 바뀐 모달 디자인으로 조금 수정했습니다!
       >
         <div className="w-full cursor-pointer" onClick={onClose}>
           <svg
