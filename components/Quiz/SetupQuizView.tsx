@@ -4,6 +4,7 @@ import Button from '@components/common/button';
 import { useQuiz } from '@components/Quiz/QuizContext';
 import TagList from '@components/common/tag-list';
 import QuizHeader from './QuizHeader';
+import withAuth, {withAuthProps} from 'lib/hooks/withAuth';
 
 const MIN_MINUTES = 1;
 const MAX_MINUTES = 7;
@@ -20,10 +21,9 @@ const fake = ['html','jamstack','javascript','nestjs',
 ];
 
 
-const SetupQuizView = () => {
+const SetupQuizView = ({auth}: withAuthProps) => {
   const {setTimer, updatePhase, errorMessage, setError, generateQuestion} = useQuiz();
   const time = useInput(MIN_MINUTES);
-
   const startQuiz = () => {
     if(
       time.attrs.value < MIN_MINUTES ||
@@ -48,7 +48,7 @@ const SetupQuizView = () => {
     <>
       <QuizHeader>
         <QuizHeader.Content>
-          <span className='text-blue'>#미래의 원아우어</span>님,<br/>
+          <span className='text-blue'>{auth ? auth.name :'#미래의 원아우어'}</span>님,<br/>
           북마크된 질문을 풀어보세요
         </QuizHeader.Content>
       </QuizHeader>
@@ -76,4 +76,4 @@ const SetupQuizView = () => {
   )
 }
 
-export default SetupQuizView;
+export default withAuth(SetupQuizView);

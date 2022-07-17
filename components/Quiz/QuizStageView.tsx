@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useLogin, useInput } from 'lib/hooks';
+import { useInput } from 'lib/hooks';
+import withAuth, {withAuthProps} from 'lib/hooks/withAuth';
 
 import Modal from '@components/common/modal';
 import Button from '@components/common/button';
@@ -7,12 +8,12 @@ import { QuestionCard, AnswerCard, QuizTimer } from '@components/Quiz';
 import { useQuiz, QuestionType } from '@components/Quiz/QuizContext';
 import QuizHeader from './QuizHeader';
 
+
 const QUIZ_NUM = 10;
 
 
-const QuizStageView = () => {
+const QuizStageView = ({auth}:withAuthProps) => {
   const {currentStage, goNextStage, timer, errorMessage, setError, questions, updataAnswer, updatePhase, expired } = useQuiz();
-  const { user } = useLogin();
   
   const answer = useInput('');
   const [expiredMessage, setExpiredMessage] = useState('시간 안에 풀지 못했네요. 다음문제로 넘어갑니다.');
@@ -87,7 +88,7 @@ const QuizStageView = () => {
     <section className='py-4'>
       <QuizHeader>
         <QuizHeader.Content>
-          <span className='text-blue'>{user ? user.user.name : '#UserName'}</span>을 위해 문제를 랜덤으로 총 {QUIZ_NUM}개를 준비했어요.<br/>
+          <span className='text-blue'>{auth ? auth.name : '#UserName'}</span>을 위해 문제를 랜덤으로 총 {QUIZ_NUM}개를 준비했어요.<br/>
           문제를 풀며 자가진단을 해보세요!
         </QuizHeader.Content>
         <QuizHeader.Side>
@@ -117,4 +118,4 @@ const QuizStageView = () => {
   )
 }
 
-export default QuizStageView;
+export default withAuth(QuizStageView);

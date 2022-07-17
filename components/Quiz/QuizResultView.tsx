@@ -1,5 +1,5 @@
 import {useQuiz} from '@components/Quiz/QuizContext';
-
+import withAuth, {withAuthProps} from 'lib/hooks/withAuth';
 import Button from '@components/common/button';
 import { QuestionCard, ResultCard } from '@components/Quiz';
 import QuizHeader from './QuizHeader';
@@ -7,7 +7,7 @@ import QuizHeader from './QuizHeader';
 const QUIZ_NUM = 10;
 
 
-const QuizResultView = () => {
+const QuizResultView = ({auth}: withAuthProps) => {
   const {updatePhase, setCurrentStage, questions, answers} = useQuiz();
   const handleBackStage = () => {
     setCurrentStage!(0);
@@ -18,7 +18,7 @@ const QuizResultView = () => {
     <>
       <QuizHeader>
         <QuizHeader.Content>
-          <span className='text-blue'>#UserName</span>님, 문제 결과를 확인하세요.
+          <span className='text-blue'>{auth ? auth.name : '#UserName'}</span>님, 문제 결과를 확인하세요.
         </QuizHeader.Content>
         <QuizHeader.Side>
           <Button
@@ -46,4 +46,4 @@ const QuizResultView = () => {
   )
 }
 
-export default QuizResultView;
+export default withAuth(QuizResultView);
