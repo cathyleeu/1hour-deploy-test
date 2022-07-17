@@ -15,13 +15,13 @@ const QuestionCard = ({
 }: Props) => {
   return (
     <div className={`bg-gray-light w-full p-6 rounded-large ${className}`}>
-      <div className='flex justify-between items-center'>
-        <IconText src="/assets/images/quiz/question.png" className='mb-5'>
+      <div className='flex justify-between items-center mb-5'>
+        <IconText src="/assets/images/quiz/question.png">
           <p className='font-bold text-xl'>Question</p>
         </IconText>
         <p className='text-sm'>{stage}/{maxStage}</p>
       </div>
-      <p className='text-2xl'>{question}</p>
+      <p className='text-base md:text-2xl'>{question}</p>
     </div>
   )
 }
