@@ -1,9 +1,9 @@
 export enum CategoryId {
-  FrontEnd = 1,
-  BackEnd = 2,
-  DevOps = 3,
-  Mobile = 4,
-  DataScience = 5,
+  frontend = 1,
+  backend = 2,
+  devops = 3,
+  mobile = 4,
+  datascience = 5,
 }
 
 export interface Category {
@@ -17,8 +17,8 @@ export interface Tag {
 }
 
 export interface QnAType {
-  title: string;
-  content: string;
+  title: string | undefined;
+  content: string | undefined;
   category_id: number;
-  tags: Tag[];
+  tags: Array<object>;
 }

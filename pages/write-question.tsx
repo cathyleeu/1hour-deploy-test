@@ -1,4 +1,13 @@
-import React, { ChangeEvent, MutableRefObject, FocusEvent, useMemo, useRef, useState, useCallback } from 'react';
+import React, {
+  ChangeEvent,
+  MutableRefObject,
+  FocusEvent,
+  useMemo,
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+} from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Button from '@components/common/button';
@@ -9,6 +18,9 @@ import Select from '@components/common/Select';
 import { categoryBanner, tagByCategory } from 'lib/utils';
 import Modal from '@components/common/modal';
 import { useRouter } from 'next/router';
+import { GetCategories, PostQnA } from 'api/oneHourAPI';
+import { Category, CategoryId } from 'api/types';
+import { useLogin } from 'lib/hooks';
 
 export interface QuestionPostDataProps {
   title: string;
@@ -19,21 +31,36 @@ export interface QuestionPostDataProps {
 
 const WriteQuestion: NextPage = () => {
   const router = useRouter();
-
+  const { user } = useLogin();
   const [category_id, setCategory_id] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isPost, setIsPost] = useState(false);
+  // const [categoryData, setCategoryData] = useState<Array<string>>([]);
 
   const titleRef = useRef<HTMLTextAreaElement | null>(null);
   const contentRef = useRef<HTMLTextAreaElement | null>(null);
 
-  // category and taglist API setting
+  // const fetchCategories = useCallback(async () => {
+  //   try {
+  //     const data = await GetCategories();
+  //     const temp = []; // 데이터 가공
+  //     for (const obj of data[0]) {
+  //       temp.push(obj.name);
+  //     }
+  //     setCategoryData(temp);
+  //   } catch (err) {
+  //     return err;
+  //   }
+  // }, []);
+
   const categories = Object.keys(categoryBanner);
   const tagList = useMemo(() => tagByCategory[category_id as CategoryKey], [category_id]);
 
   const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     setCategory_id(e.target.value);
   };
+
   const returnEvent = (e: ChangeEvent<HTMLTextAreaElement>) => {
     return e;
   };
@@ -63,19 +90,35 @@ const WriteQuestion: NextPage = () => {
   };
 
   const postQuestion = () => {
-    console.log('post');
+    setIsPost(true);
+    // const dataBody = {
+    //   title: titleRef.current?.value,
+    //   content: contentRef.current?.value,
+    //   // category: category_id as CategoryKey,
+    //   category_id: 0,
+    //   tags: [
+    //     {
+    //       id: 1,
+    //       name: tags[0],
+    //     },
+    //   ],
+    // };
+    // PostQnA(dataBody, user?.user.token);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
+  // useEffect(() => {
+  //   fetchCategories();
+  // }, [fetchCategories]);
+
   return (
     <>
       <Head>
         <title>1Hour - Write Question</title>
       </Head>
-
       <div className="flex flex-col">
         <div className="guide--section">
           <div className="text-[35px] text-[#FFFFFF] font-bold mt-[50px]">
@@ -158,19 +201,39 @@ const WriteQuestion: NextPage = () => {
           </Button>
         </div>
 
-        <Modal isOpen={isModalOpen} onClose={closeModal}>
-          <div className="w-full h-full border-white flex flex-col items-center">
-            <p className="mt-[12px] mb-[16px]">페이지를 나가시면 작성된 내용이 저장되지 않아요.</p>
-            <div className="button--group flex gap-[8px]">
-              <Button className="w-[127px] h-[52px] text-[16px] font-bold bg-gray" onClick={closeModal}>
-                머무르기
-              </Button>
-              <Button className="w-[127px] h-[52px] text-[16px] font-bold bg-error" onClick={() => router.push('/')}>
-                나가기
-              </Button>
+        {!isPost ? (
+          <Modal isOpen={isModalOpen} onClose={closeModal}>
+            <div className="w-full h-full border-white flex flex-col items-center">
+              <p className="mt-[12px] mb-[16px]">페이지를 나가시면 작성된 내용이 저장되지 않아요.</p>
+              <div className="button--group flex gap-[8px]">
+                <Button className="w-[127px] h-[52px] text-[16px] font-bold bg-gray" onClick={closeModal}>
+                  머무르기
+                </Button>
+                <Button className="w-[127px] h-[52px] text-[16px] font-bold bg-error" onClick={() => router.push('/')}>
+                  나가기
+                </Button>
+              </div>
             </div>
-          </div>
-        </Modal>
+          </Modal>
+        ) : (
+          <Modal isOpen={isPost} onClose={closeModal}>
+            <div className="w-full h-full border-white flex flex-col items-center">
+              <p className="mt-[12px] mb-[16px] text-center">
+                질문 등록은 추후 구현될 예정입니다 😭
+                <br />
+                작성해주셔서 감사합니다!
+              </p>
+              <div className="button--group flex gap-[8px]">
+                <Button
+                  className="w-[127px] h-[52px] text-[16px] font-bold bg-gray-light"
+                  onClick={() => router.push('/')}
+                >
+                  홈으로
+                </Button>
+              </div>
+            </div>
+          </Modal>
+        )}
       </div>
     </>
   );
