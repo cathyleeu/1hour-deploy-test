@@ -2,7 +2,8 @@ import { useAuth } from '@components/auth/AuthProvide';
 import Button from '@components/common/button';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
-import { authOptions } from './api/auth/[...nextauth]';
+import nookies from 'nookies'
+
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -25,8 +26,9 @@ export default function LoginPage() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // TODO
-  if (true) {
+  const cookies = nookies.get(context);
+  const { token } = cookies;
+  if (token) {
     return {
       redirect: {
         destination: '/bookmark',

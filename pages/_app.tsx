@@ -2,7 +2,6 @@ import '../styles/globals.scss';
 import type { AppProps } from 'next/app';
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { SessionProvider } from 'next-auth/react';
 
 import Layout from '@components/Layout';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -41,7 +40,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
       </Head>
       <CssBaseline />
       <ResponsiveProvider>
-        {/* <SessionProvider session={session}> */}
         <AuthProvider>
           {noLayout ? (
             <Component {...pageProps} />
@@ -51,8 +49,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
             </Layout>
           )}
         </AuthProvider>
-        {/* </SessionProvider> */}
-        
       </ResponsiveProvider>
     </>
   );

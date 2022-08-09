@@ -3,10 +3,8 @@ import SmallHeader from '@components/common/small-header';
 import BookmarkBanner from 'components/bookmark/banner';
 import { GetServerSideProps } from 'next';
 import questions from '../dummy/questions.json';
-import { unstable_getServerSession } from 'next-auth/next';
-import { authOptions } from './api/auth/[...nextauth]';
-import { UserSession } from 'next-auth';
 import { useAuth } from '@components/auth/AuthProvide';
+import nookies from 'nookies'
 
 const Bookmark = () => {
   const { user } = useAuth();
@@ -31,9 +29,9 @@ const Bookmark = () => {
 export default Bookmark;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // console.log(context.req.cookies)
-
-  if (!true) {
+  const cookies = nookies.get(context);
+  const { token } = cookies;
+  if (!token) {
     return {
       redirect: {
         destination: '/need-login',
