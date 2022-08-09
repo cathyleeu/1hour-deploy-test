@@ -1,4 +1,6 @@
-interface TimerInputProps {
+import { PropsWithChildren } from 'react'
+
+interface NumberInputProps {
   error?: string;
   value?: string | number;
   min: number;
@@ -6,8 +8,13 @@ interface TimerInputProps {
   onChange?: React.ChangeEventHandler<HTMLInputElement>
 }
 
-const TimerInput = ({error, min, max, ...rest}: TimerInputProps) => {
-  
+const NumberInput = ({ 
+  min,
+  max,
+  error,
+  children,
+  ...rest
+}: PropsWithChildren<NumberInputProps>) => {
   return (
     <div className='
       flex place-items-center text-3xl 
@@ -22,10 +29,9 @@ const TimerInput = ({error, min, max, ...rest}: TimerInputProps) => {
         `}
         {...rest}
       />
-      <p className='text-white pl-2'>분</p>
+      {children}
     </div>
-    
   )
 }
 
-export default TimerInput;
+export default NumberInput;

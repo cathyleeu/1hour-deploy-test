@@ -20,14 +20,14 @@ const QuizTimer = ({
   }, [])
 
   useEffect(() => {
-    setTimeExpired!(false);
+    setTimeExpired(false);
     clearCountdown();
     startCountdown(timer * 60 * 1000);
   }, [currentStage])
 
   useEffect(() => {
     if(expired) {
-      setTimeExpired!(true);
+      setTimeExpired(true);
     }
   }, [expired])
   return (

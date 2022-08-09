@@ -1,5 +1,5 @@
 import { useInput } from 'lib/hooks';
-import { IconText, TimerInput } from '.';
+import { IconText, NumberInput } from '.';
 import Button from '@components/common/button';
 import { useQuiz } from '@components/Quiz/QuizContext';
 import TagList from '@components/common/tag-list';
@@ -8,6 +8,9 @@ import withAuth, { withAuthProps } from 'lib/hooks/withAuth';
 
 const MIN_MINUTES = 1;
 const MAX_MINUTES = 7;
+const MIN_QUIZ = 3;
+const MAX_QUIZ = 10;
+
 const fake = [
   'html',
   'jamstack',
@@ -25,23 +28,25 @@ const fake = [
 ];
 
 const SetupQuizView = ({ auth }: withAuthProps) => {
-  const { setTimer, updatePhase, errorMessage, setError, generateQuestion } = useQuiz();
+  const { setTimer, updatePhase, errorMessage, setError, generateQuestion, setQuizNum, setCurrentStage } = useQuiz();
   const time = useInput(MIN_MINUTES);
+  const quiz = useInput(MIN_QUIZ);
   const startQuiz = () => {
     if (time.attrs.value < MIN_MINUTES || time.attrs.value > MAX_MINUTES) {
-      setError!(`
+      setError(`
         최소 ${MIN_MINUTES}분 이상 이거나
         최대 ${MAX_MINUTES}분 이하 입니다.`);
       time.setValue(MIN_MINUTES);
       setTimeout(() => {
-        setError!('');
+        setError('');
       }, 2000);
       return;
     }
-
-    setTimer!(time.attrs.value as number);
-    updatePhase!('ONGOING');
-    generateQuestion!();
+    setQuizNum(quiz.attrs.value as number)
+    setTimer(time.attrs.value as number);
+    updatePhase('ONGOING');
+    setCurrentStage(1);
+    generateQuestion(quiz.attrs.value as number);
   };
   return (
     <>
@@ -64,7 +69,14 @@ const SetupQuizView = ({ auth }: withAuthProps) => {
         {errorMessage ? (
           <span className="text-error text-base absolute right-0 -bottom-8 text-right">{errorMessage}</span>
         ) : null}
-        <TimerInput min={MIN_MINUTES} max={MAX_MINUTES} {...time.attrs} error={errorMessage} />
+
+        <NumberInput min={MIN_QUIZ} max={MAX_QUIZ} {...quiz.attrs}>
+          <p className='text-white pl-2 mr-4'>문제</p>
+        </NumberInput>
+
+        <NumberInput min={MIN_MINUTES} max={MAX_MINUTES} {...time.attrs} error={errorMessage}>
+          <p className='text-white pl-2'>분</p>
+        </NumberInput>
         <Button className="bg-blue font-bold ml-4 px-4" onClick={startQuiz}>
           복습시작하기
         </Button>
