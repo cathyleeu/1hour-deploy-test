@@ -87,7 +87,7 @@ const QuizStageView = ({ auth }: withAuthProps) => {
     <section className="py-4">
       <QuizHeader>
         <QuizHeader.Content>
-          <span className="text-blue">{auth ? auth.name : '#UserName'}</span>을 위해 문제를 랜덤으로 총 {QUIZ_NUM}개를
+          <span className="text-blue">{auth.displayName ?? '#UserName'}</span>을 위해 문제를 랜덤으로 총 {QUIZ_NUM}개를
           준비했어요.
           <br />
           문제를 풀며 자가진단을 해보세요!
