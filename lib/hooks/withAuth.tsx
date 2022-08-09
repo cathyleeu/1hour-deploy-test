@@ -1,6 +1,6 @@
 import React from "react";
-import useLogin from "./uselogin";
-import { User } from '../../types/next-auth';
+import { User } from 'firebase/auth'
+import { useAuth } from "@components/auth/AuthProvide";
 
 export interface withAuthProps {
   auth: User;
@@ -8,8 +8,8 @@ export interface withAuthProps {
 
 const withAuth = (WrappedComponent: React.FC<any>) => {
   const AuthComponent = (props: any) => {
-    const { user } = useLogin();
-    return <WrappedComponent {...props} auth={user?.user} />
+    const { user } = useAuth();
+    return <WrappedComponent {...props} auth={user} />
   };
 
   return AuthComponent;
