@@ -1,7 +1,8 @@
-import { GithubAuthProvider, signOut, signInWithPopup, User, setPersistence, browserLocalPersistence, signInWithRedirect, onAuthStateChanged } from "firebase/auth";
+import { GithubAuthProvider, signOut, signInWithPopup, User, onIdTokenChanged ,onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useState, createContext, useContext, useEffect } from "react";
 import type { PropsWithChildren } from 'react'
+import nookies from 'nookies'
 
 // Firebase Github Auth 
 interface AuthContextType {
@@ -21,24 +22,17 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   const [token, setToken] = useState<string | undefined>();
   const [user, setUser] = useState<User>();
 
-  const setTokenServer = async(idToken:string) => {
-    // FIXME
-    await fetch(`/api/token`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ idToken }),
-    })
-  }
   useEffect(() => {
-    onAuthStateChanged(auth, async(user) => {
-      if (user) {
+    onIdTokenChanged(auth, async(user) => {
+      if(user) {
         const idToken = await user.getIdToken()
-        setTokenServer(idToken)
         setToken(idToken)
         setUser(user)
+        nookies.set(undefined, "token", idToken, {})
       } else {
+        nookies.set(undefined, "token", "", {})
       }
-    })
+    }) 
   }, [])
   const login = async () => {
     const provider = new GithubAuthProvider();
@@ -64,19 +58,20 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       console.log(error);
       setError(error.message);
       setIsPending(false);
+    } finally {
+      location.reload()
     }
-
-    onAuthStateChanged
   }
 
   const logout = async () => {
     try {
-      const res = await signOut(auth)
-      console.log(res);
+      await signOut(auth)
       setToken(undefined)
       setUser(undefined)
     } catch (error) {
       throw new Error("Logout Error");      
+    } finally {
+      location.reload()
     }
   }
 
