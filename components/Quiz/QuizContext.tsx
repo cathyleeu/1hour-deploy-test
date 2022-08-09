@@ -86,8 +86,6 @@ const initialState = {
 };
 
 
-
-
 const reducer = (state:ContextState, { type, payload }:ActionType) => {
   switch (type) {
     case 'SET_TIMER': 
