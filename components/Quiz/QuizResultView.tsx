@@ -4,13 +4,12 @@ import Button from '@components/common/button';
 import { QuestionCard, ResultCard } from '@components/Quiz';
 import QuizHeader from './QuizHeader';
 
-const QUIZ_NUM = 10;
 
 const QuizResultView = ({ auth }: withAuthProps) => {
-  const { updatePhase, setCurrentStage, questions, answers } = useQuiz();
+  const { updatePhase, setCurrentStage, questions, answers, totalStage } = useQuiz();
   const handleBackStage = () => {
-    setCurrentStage!(0);
-    updatePhase!('SETUP');
+    setCurrentStage(0);
+    updatePhase('SETUP');
   };
 
   return (
@@ -27,7 +26,7 @@ const QuizResultView = ({ auth }: withAuthProps) => {
       </QuizHeader>
       {questions.map((r, i) => (
         <div className="flex flex-col gap-4 relative my-12" key={i}>
-          <QuestionCard maxStage={QUIZ_NUM} stage={i + 1} question={r.question} />
+          <QuestionCard maxStage={totalStage} stage={i + 1} question={r.question} />
           <div className="flex flex-col sm:flex-row gap-4">
             <ResultCard type="answer" content={answers[i].content} />
             <ResultCard type="other" content={r.answer} />

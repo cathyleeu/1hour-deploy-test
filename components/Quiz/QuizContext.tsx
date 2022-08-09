@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useReducer, PropsWithChildren } from 'react';
 import { generateUUID } from 'lib/utils';
 import { RandomQuizList, generateRandom } from 'lib/utils';
 
@@ -11,7 +11,8 @@ export interface QuestionType {
   question: string;
   answer: string
 }
-interface QuizContextType {
+
+interface ContextState {
   timer: number;
   expired: boolean;
   answers: AnswersType[];
@@ -28,15 +29,18 @@ interface QuizContextType {
   minimumText: number;
   phase: 'SETUP' | 'ONGOING' | 'FINISHED';
   isOpen: boolean;
+}
 
-  setTimer?: (time: number) => void;
-  updataAnswer?: (answer:AnswersType) => void;
-  generateQuestion?: () => void;
-  goNextStage?: () => void;
-  updatePhase?: (phase:'SETUP' | 'ONGOING' | 'FINISHED') => void;
-  setError?: (errorMessage:string) => void;
-  setCurrentStage?:(stage:number) => void;
-  setTimeExpired?:(expired: boolean) => void;
+interface QuizContextType extends ContextState  {
+  setTimer: (time: number) => void;
+  setQuizNum: (quiz: number) => void;
+  updataAnswer: (answer: AnswersType) => void;
+  generateQuestion: (stage: number) => void;
+  goNextStage: () => void;
+  updatePhase: (phase:'SETUP' | 'ONGOING' | 'FINISHED') => void;
+  setError: (errorMessage:string) => void;
+  setCurrentStage:(stage:number) => void;
+  setTimeExpired:(expired: boolean) => void;
 }
 
 interface ActionType {
@@ -53,6 +57,7 @@ const actions = {
   SET_PHASE:'SET_PHASE',
   SET_ERROR_MESSAGE: 'SET_ERROR_MESSAGE',
   SET_EXPIRED_MESSAGE: 'SET_EXPIRED_MESSAGE',
+  SET_QUIZ_NUM: 'SET_QUIZ_NUM',
 
   
   GENERATE_QUESTION: 'GENERATE_QUESTION',
@@ -73,7 +78,7 @@ const initialState = {
   expiredMessage: '',
 
   currentStage: 0,
-  totalStage: 10,
+  totalStage: 3,
   minimumMin: 1,
   minimumText: 10,
   phase: 'SETUP',
@@ -81,7 +86,9 @@ const initialState = {
 };
 
 
-const reducer = (state:QuizContextType, { type, payload }:ActionType) => {
+
+
+const reducer = (state:ContextState, { type, payload }:ActionType) => {
   switch (type) {
     case 'SET_TIMER': 
       return {...state, timer: payload.timer }
@@ -91,6 +98,8 @@ const reducer = (state:QuizContextType, { type, payload }:ActionType) => {
       return {...state, currentStage: payload.currentStage}
     case 'SET_PHASE': 
       return {...state, phase: payload.phase}
+    case 'SET_QUIZ_NUM' : 
+      return { ...state, totalStage: payload.quiz}
 
     case 'GENERATE_QUESTION':
       return {...state, questions: payload.questions, isGenerated: payload.isGenerated}
@@ -107,7 +116,7 @@ const reducer = (state:QuizContextType, { type, payload }:ActionType) => {
   }
 };
 
-const QuizProvider = ({ children }:{children: React.ReactChild}) => {
+const QuizProvider = ({ children }: PropsWithChildren) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   
   return (
@@ -119,15 +128,15 @@ const QuizProvider = ({ children }:{children: React.ReactChild}) => {
           _answers.push(answer);
           dispatch({type: actions.UPDATE_ANSWER, payload: { answers: _answers }})
         },
-        generateQuestion: () => {
-          const random = generateRandom(RandomQuizList.length, state.totalStage);
+        generateQuestion: (stage: number) => {
+          const random = generateRandom(RandomQuizList.length - 1, stage);
           const questions = random.reduce((acc:any, curr) => {
             acc.push({
               id: generateUUID(),
               ...RandomQuizList[curr]
             })
             return acc;
-          }, [])          
+          }, [])
           dispatch({type: actions.GENERATE_QUESTION, payload: { questions, isGenerated: true }})
         },
         updatePhase: (phase:string) => {
@@ -138,6 +147,9 @@ const QuizProvider = ({ children }:{children: React.ReactChild}) => {
         },
         setTimer: (timer: number) => {
           dispatch({type: actions.SET_TIMER, payload: { timer }})
+        },
+        setQuizNum: (quiz: number) => {
+          dispatch({type: actions.SET_QUIZ_NUM, payload: { quiz }})
         },
         setTimeExpired: (expired: boolean) => {
           dispatch({type: actions.SET_TIME_EXPIRED, payload: { expired }})
