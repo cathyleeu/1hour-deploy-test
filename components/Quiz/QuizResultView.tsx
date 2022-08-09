@@ -16,7 +16,7 @@ const QuizResultView = ({ auth }: withAuthProps) => {
     <>
       <QuizHeader>
         <QuizHeader.Content>
-          <span className="text-blue">{auth.displayName ?? '#UserName'}</span>님, 문제 결과를 확인하세요.
+          <span className="text-blue">{auth ? auth.displayName : '#미래의 원아우어'}</span>님, 문제 결과를 확인하세요.
         </QuizHeader.Content>
         <QuizHeader.Side>
           <Button className="bg-blue font-bold p-4 px-6" onClick={handleBackStage}>

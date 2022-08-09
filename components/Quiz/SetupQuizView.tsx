@@ -52,7 +52,7 @@ const SetupQuizView = ({ auth }: withAuthProps) => {
     <>
       <QuizHeader>
         <QuizHeader.Content>
-          <span className="text-blue">{auth.displayName ?? '#미래의 원아우어'}</span>님,
+          <span className="text-blue">{auth ? auth.displayName : '#미래의 원아우어'}</span>님,
           <br />
           북마크된 질문을 풀어보세요
         </QuizHeader.Content>
