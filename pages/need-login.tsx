@@ -1,12 +1,11 @@
+import { useAuth } from '@components/auth/AuthProvide';
 import Button from '@components/common/button';
-import { useLogin } from 'lib/hooks';
 import { GetServerSideProps } from 'next';
-import { unstable_getServerSession } from 'next-auth';
 import Image from 'next/image';
 import { authOptions } from './api/auth/[...nextauth]';
 
 export default function LoginPage() {
-  const { login } = useLogin();
+  const { login } = useAuth();
 
   return (
     <main className="flex justify-center items-center flex-col gap-4 mt-20">
@@ -26,9 +25,8 @@ export default function LoginPage() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const user = await unstable_getServerSession(context.req, context.res, authOptions);
-
-  if (user) {
+  // TODO
+  if (true) {
     return {
       redirect: {
         destination: '/bookmark',

@@ -5,7 +5,7 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 export const useLogin = () => {
   const [isOpenLogin, setIsOpenLogin] = useState(false);
 
-  const { data: user } = useSession();
+  // const { data: user } = useSession();
 
   const toggleOpenLogin = () => setIsOpenLogin((p) => !p);
   const login = () => signIn('github');
@@ -13,7 +13,7 @@ export const useLogin = () => {
 
   return {
     isOpenLogin,
-    user,
+    // user,
     login,
     logout,
     toggleOpenLogin,

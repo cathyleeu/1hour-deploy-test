@@ -1,9 +1,9 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Logo } from '@components/common/Icon';
 import Modal from '@components/common/modal';
-import { useLogin } from 'lib/hooks';
 import { useResponsiveContext } from './ResponsiveContext';
+import { useAuth } from '@components/auth/AuthProvide';
 
 type Props = {
   isOpenLogin: boolean;
@@ -11,8 +11,12 @@ type Props = {
 };
 
 const LoginModal = ({ isOpenLogin, toggleOpenLogin }: Props) => {
-  const { login } = useLogin();
+  const { login, user } = useAuth();
   const { IsMobileScreen } = useResponsiveContext();
+
+  useEffect(() => {
+    toggleOpenLogin()
+  }, [user])
 
   return (
     <>

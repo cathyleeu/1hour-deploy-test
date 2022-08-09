@@ -4,11 +4,12 @@ import Image from 'next/image';
 import { memo, useState } from 'react';
 import styles from 'styles/avatar.module.scss';
 import { useRouter } from 'next/router';
+import { useAuth } from '@components/auth/AuthProvide';
 
 const Avatar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const { logout, user } = useLogin();
+  const { user, logout } = useAuth(); 
 
   const ref = useClickOutside(() => {
     setIsOpen(false);
@@ -24,7 +25,7 @@ const Avatar = () => {
         className="grid place-items-center w-[60px] h-[60px] rounded-full relative overflow-hidden"
         onClick={handleTogglePopup}
       >
-        <Image src={user?.user?.image ?? ''} alt="avatar" layout="fill" objectFit="contain" />
+        <Image src={user?.photoURL ?? ''} alt="avatar" layout="fill" objectFit="contain" />
       </button>
       {isOpen && (
         <section className={styles.arrow} ref={ref} onClick={handleTogglePopup}>

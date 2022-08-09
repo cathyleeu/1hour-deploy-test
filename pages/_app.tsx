@@ -8,6 +8,7 @@ import Layout from '@components/Layout';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import ResponsiveProvider from '@components/Layout/ResponsiveContext';
+import AuthProvider from '@components/auth/AuthProvide';
 
 export type NextPageWithLayout = NextPage & {
   noLayout?: boolean;
@@ -40,7 +41,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
       </Head>
       <CssBaseline />
       <ResponsiveProvider>
-        <SessionProvider session={session}>
+        {/* <SessionProvider session={session}> */}
+        <AuthProvider>
           {noLayout ? (
             <Component {...pageProps} />
           ) : (
@@ -48,7 +50,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
               <Component {...pageProps} />
             </Layout>
           )}
-        </SessionProvider>
+        </AuthProvider>
+        {/* </SessionProvider> */}
+        
       </ResponsiveProvider>
     </>
   );

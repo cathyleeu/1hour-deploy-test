@@ -6,13 +6,15 @@ import questions from '../dummy/questions.json';
 import { unstable_getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 import { UserSession } from 'next-auth';
+import { useAuth } from '@components/auth/AuthProvide';
 
-const Bookmark = ({ user }: { user: UserSession }) => {
+const Bookmark = () => {
+  const { user } = useAuth();
   const filteredQuestions = questions.filter((question) => question.isBookmark);
 
   return (
     <main className="w-full h-full">
-      <BookmarkBanner name={user.user.name} />
+      <BookmarkBanner name={user?.displayName ?? ''} />
       <section className="mt-9">
         <SmallHeader content={`전체 (${filteredQuestions.length})`} src="/assets/icons/pen.png" />
       </section>
@@ -29,9 +31,9 @@ const Bookmark = ({ user }: { user: UserSession }) => {
 export default Bookmark;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const user = await unstable_getServerSession(context.req, context.res, authOptions);
+  // console.log(context.req.cookies)
 
-  if (!user) {
+  if (!true) {
     return {
       redirect: {
         destination: '/need-login',
@@ -42,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      user,
+      
     },
   };
 };

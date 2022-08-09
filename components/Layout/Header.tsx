@@ -1,18 +1,26 @@
 import { Hamburger, Logo } from '@components/common/Icon';
 import { useResponsiveContext } from '@components/Layout/ResponsiveContext';
 import Avatar from './avatar';
-import { useLogin } from 'lib/hooks';
 import dynamic from 'next/dynamic';
+import { useAuth } from '@components/auth/AuthProvide';
+import { useState } from 'react'
 
 const LoginModal = dynamic(() => import('components/Layout/login-modal'));
 
 export default function Header() {
   const { IsMobileScreen, setIsMenuOpen } = useResponsiveContext();
-  const { isOpenLogin, toggleOpenLogin, user } = useLogin();
+  const { user } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
 
   const openSidebar = () => {
     setIsMenuOpen(true);
   };
+
+  const handleLoginModal = (e: any) => {
+    
+    e.stopPropagation();
+    setIsOpen(true)
+  }
 
   return (
     <>
@@ -31,10 +39,7 @@ export default function Header() {
             <Avatar />
           ) : (
             <p
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleOpenLogin();
-              }}
+              onClick={handleLoginModal}
               className="py-4 font-bold text-xl cursor-pointer"
             >
               로그인
@@ -42,7 +47,10 @@ export default function Header() {
           )}
         </div>
       </div>
-      <LoginModal {...{ isOpenLogin, toggleOpenLogin }} />
+      <LoginModal {...{ 
+        isOpenLogin: isOpen,  
+        toggleOpenLogin: () => setIsOpen(false)
+        }} />
     </>
   );
 }
