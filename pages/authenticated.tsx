@@ -1,11 +1,10 @@
 import { useAuth } from '@components/auth/AuthProvide';
 import Button from '@components/common/button';
 import { GetServerSideProps } from 'next';
-import { verifyIdToken } from '../firebaseAdmin'
 import Image from 'next/image';
 import nookies from 'nookies'
 
-
+// FIXME & TODO
 export default function LoginPage() {
   const { login } = useAuth();
 
@@ -28,8 +27,7 @@ export default function LoginPage() {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
-  const token = await verifyIdToken(cookies.token);
-  
+  const { token } = cookies;
   if (token) {
     return {
       redirect: {

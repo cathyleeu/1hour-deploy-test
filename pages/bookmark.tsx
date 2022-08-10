@@ -1,3 +1,4 @@
+import { verifyIdToken } from '../firebaseAdmin'
 import QuestionCard from '@components/common/question-card';
 import SmallHeader from '@components/common/small-header';
 import BookmarkBanner from 'components/bookmark/banner';
@@ -30,7 +31,8 @@ export default Bookmark;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
-  const { token } = cookies;
+  const token = await verifyIdToken(cookies.token);
+
   if (!token) {
     return {
       redirect: {
