@@ -1,44 +1,47 @@
-import { GithubAuthProvider, signOut, signInWithPopup, User, onIdTokenChanged ,onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase";
+import { GithubAuthProvider, signOut, signInWithPopup, User, onIdTokenChanged } from "firebase/auth";
+import { auth } from "../../firebaseClient";
 import { useState, createContext, useContext, useEffect } from "react";
 import type { PropsWithChildren } from 'react'
 import nookies from 'nookies'
 
 // Firebase Github Auth 
-interface AuthContextType {
+interface Auth {
+  token?: string;
+  user?: User;
+}
+interface AuthContextType extends Auth {
   login: () => void;
   logout: () => void;
-  token: string | undefined;
-  user: User | undefined;
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
-
   const [error, setError] = useState(null);
-  const [isPending, setIsPending] = useState(false);
-  
   const [token, setToken] = useState<string | undefined>();
   const [user, setUser] = useState<User>();
 
+  const setupAuth = ({token, user }: Auth) => {
+    nookies.set(undefined, "token", token ?? "", {})
+    setToken(token)
+    setUser(user)
+  }
+
   useEffect(() => {
     onIdTokenChanged(auth, async(user) => {
-      if(user) {
-        const idToken = await user.getIdToken()
-        setToken(idToken)
-        setUser(user)
-        nookies.set(undefined, "token", idToken, {})
-      } else {
-        nookies.set(undefined, "token", "", {})
+      if(!user) {
+        setupAuth({})
+        return;
       }
+      const idToken = await user.getIdToken()
+      setupAuth({ token:idToken, user })
     }) 
   }, [])
+
   const login = async () => {
     const provider = new GithubAuthProvider();
     setError(null);
-    setIsPending(true);
-    
+
     try {
       const result = await signInWithPopup(auth, provider)
       if (result) {        
@@ -53,11 +56,9 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
         throw new Error("Could not complete signup");
       }
 
-      setIsPending(false)
     } catch (error: any) {
       console.log(error);
-      setError(error.message);
-      setIsPending(false);
+      setError(error.message);;
     } finally {
       location.reload()
     }
@@ -66,8 +67,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   const logout = async () => {
     try {
       await signOut(auth)
-      setToken(undefined)
-      setUser(undefined)
+      setupAuth({})
     } catch (error) {
       throw new Error("Logout Error");      
     } finally {
