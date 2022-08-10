@@ -19,8 +19,7 @@ import { categoryBanner, tagByCategory } from 'lib/utils';
 import Modal from '@components/common/modal';
 import { useRouter } from 'next/router';
 import { GetCategories, PostQnA } from 'api/oneHourAPI';
-import { Category, CategoryId } from 'api/types';
-import { useLogin } from 'lib/hooks';
+import { Category } from 'api/types';
 
 export interface QuestionPostDataProps {
   title: string;
@@ -31,28 +30,27 @@ export interface QuestionPostDataProps {
 
 const WriteQuestion: NextPage = () => {
   const router = useRouter();
-  const { user } = useLogin();
   const [category_id, setCategory_id] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isPost, setIsPost] = useState(false);
-  // const [categoryData, setCategoryData] = useState<Array<string>>([]);
+  const [categoryData, setCategoryData] = useState<Category[]>([]);
 
   const titleRef = useRef<HTMLTextAreaElement | null>(null);
   const contentRef = useRef<HTMLTextAreaElement | null>(null);
 
-  // const fetchCategories = useCallback(async () => {
-  //   try {
-  //     const data = await GetCategories();
-  //     const temp = []; // 데이터 가공
-  //     for (const obj of data[0]) {
-  //       temp.push(obj.name);
-  //     }
-  //     setCategoryData(temp);
-  //   } catch (err) {
-  //     return err;
-  //   }
-  // }, []);
+  /*
+    FIREBASE 연결하여 categories 데이터 불러옴
+  */ 
+  const fetchCategories = useCallback(async () => {
+    try {
+      const res = await fetch('/api/categories')
+      const data =  await res.json();
+      setCategoryData(data);
+    } catch (err) {
+      return err;
+    }
+  }, []);
 
   const categories = Object.keys(categoryBanner);
   const tagList = useMemo(() => tagByCategory[category_id as CategoryKey], [category_id]);
@@ -110,9 +108,9 @@ const WriteQuestion: NextPage = () => {
     setIsModalOpen(false);
   };
 
-  // useEffect(() => {
-  //   fetchCategories();
-  // }, [fetchCategories]);
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
     <>

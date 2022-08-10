@@ -1,10 +1,9 @@
-import { useClickOutside, useLogin } from 'lib/hooks';
-import Link from 'next/link';
-import Image from 'next/image';
 import { memo, useState } from 'react';
-import styles from 'styles/avatar.module.scss';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useClickOutside } from 'lib/hooks';
 import { useAuth } from '@components/auth/AuthProvide';
+import styles from 'styles/avatar.module.scss';
 
 const Avatar = () => {
   const [isOpen, setIsOpen] = useState(false);
