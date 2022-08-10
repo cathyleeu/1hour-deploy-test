@@ -1,18 +1,18 @@
 import customAxios from '../axios/customAxios';
 import openHourUrl from '../axios/api.config';
-import { CategoryId, QnAType } from '../types';
+import { QnAType } from '../types';
 
 export const GetCategories = async () => {
   const { data } = await customAxios.get(openHourUrl.GET_CATEGORY);
   return data;
 };
 
-export const GetTags = async (category_id: CategoryId) => {
+export const GetTags = async (category_id: string) => {
   const { data } = await customAxios.get(openHourUrl.GET_TAGS);
   return data;
 };
 
-export const GetQnA = async (category_id: CategoryId, user_id: string) => {
+export const GetQnA = async (category_id: string, user_id: string) => {
   const { data } = await customAxios.get(openHourUrl.GET_QNA, {
     params: {
       user_id,
