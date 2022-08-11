@@ -5,16 +5,8 @@ import QuestionCard from '@components/common/question-card';
 import questions from '../dummy/questions.json';
 
 const Home: NextPage = () => {
-  // const fetchTags = async () => {
-  //   const data = await GetCategories();
-  //   console.log(data);
-  //   return data;
-  // };
-  // fetchTags.map((tag) => {});
-
   return (
     <div className="w-full">
-      {/* <button onClick={handleClick}>data</button> */}
       <Head>
         <title>1Hour</title>
         <meta name="description" content="개발자를 위한 기술 면접 사이트" />

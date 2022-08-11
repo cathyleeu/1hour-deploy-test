@@ -18,15 +18,6 @@ import Select from '@components/common/Select';
 import { categoryBanner, tagByCategory } from 'lib/utils';
 import Modal from '@components/common/modal';
 import { useRouter } from 'next/router';
-import { GetCategories, PostQnA } from 'api/oneHourAPI';
-import { Category } from 'api/types';
-
-export interface QuestionPostDataProps {
-  title: string;
-  content: string;
-  category_id: string;
-  tags: object[];
-}
 
 const WriteQuestion: NextPage = () => {
   const router = useRouter();
@@ -89,19 +80,6 @@ const WriteQuestion: NextPage = () => {
 
   const postQuestion = () => {
     setIsPost(true);
-    // const dataBody = {
-    //   title: titleRef.current?.value,
-    //   content: contentRef.current?.value,
-    //   // category: category_id as CategoryKey,
-    //   category_id: 0,
-    //   tags: [
-    //     {
-    //       id: 1,
-    //       name: tags[0],
-    //     },
-    //   ],
-    // };
-    // PostQnA(dataBody, user?.user.token);
   };
 
   const closeModal = () => {

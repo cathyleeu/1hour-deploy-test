@@ -13,3 +13,15 @@ type CategoryBanner = {
 type TagValue = {
   [key in CategoryKey]: string[];
 };
+
+interface Category {
+  id: string;
+  name: string;
+  desc: string;
+  title: string;
+}
+
+interface Tag {
+  id: string;
+  name: string;
+}
