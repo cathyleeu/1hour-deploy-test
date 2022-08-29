@@ -1,10 +1,18 @@
-type CategoryKey = 'frontend' | 'backend' | 'devops' | 'mobile' | 'datascience';
+type CategoryKey = 'frontend' | 'backend' | 'devops' | 'mobile' | 'datascience';  //| 'computerscience';
 
-type CategoryValue = {
+interface CategoryValue {
+  id: string;
+  name: string;
+  desc: string;
   title: string;
-  content: string;
+  pathname: string;
   src: string;
 };
+
+type CategoryOptionType = {
+  label: string;
+  value: string;
+}
 
 type CategoryBanner = {
   [key in CategoryKey]: CategoryValue;
@@ -13,13 +21,6 @@ type CategoryBanner = {
 type TagValue = {
   [key in CategoryKey]: string[];
 };
-
-interface Category {
-  id: string;
-  name: string;
-  desc: string;
-  title: string;
-}
 
 interface Tag {
   id: string;

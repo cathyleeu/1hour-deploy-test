@@ -1,8 +1,19 @@
 interface QnAType {
   title: string | undefined;
   content: string | undefined;
-  category_id: string;
-  tags: Array<object>;
+  categoryId: string;
+  // tags: Array<object>;
+}
+
+interface QuestionValue {
+  id: string;
+  title: string;
+  categoryId: string;
+  category: string;
+  bookmarks: number;
+  likes: number;
+  description: string;
+  tags?: Tag[];
 }
 
 interface QuestionPostDataProps {

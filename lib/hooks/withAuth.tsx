@@ -1,5 +1,5 @@
 import React from "react";
-import { User } from 'firebase/auth'
+import type { User } from 'firebase/auth'
 import { useAuth } from "@components/auth/AuthProvide";
 
 export interface withAuthProps {

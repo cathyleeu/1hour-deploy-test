@@ -1,7 +1,7 @@
 import { useAuth } from '@components/auth/AuthProvide';
 import Button from '@components/common/button';
 import { GetServerSideProps } from 'next';
-import { verifyIdToken } from '../firebaseAdmin'
+import { verifyIdToken } from '@/firebase/admin'
 import Image from 'next/image';
 import nookies from 'nookies'
 
