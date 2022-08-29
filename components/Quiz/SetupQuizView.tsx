@@ -62,7 +62,7 @@ const SetupQuizView = ({ auth }: withAuthProps) => {
         <IconText src="/assets/images/quiz/bulb.png" className="mb-5">
           <p className="font-bold text-sm md:text-xl">아래의 태그에 속한 질문을 랜덤으로 풀어보세요.</p>
         </IconText>
-        <TagList value={fake} />
+        {/* <TagList value={fake} /> */}
       </section>
 
       <section className="flex justify-end relative">
