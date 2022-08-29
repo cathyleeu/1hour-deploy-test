@@ -1,23 +1,27 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import db from '../../firebaseAdmin';
-
-interface CategoriesType {
-  id: string;
-  [key:string]: any
-}
+import { db } from '@/firebase/admin';
 
 export default async (
   req: NextApiRequest, 
   res: NextApiResponse
 ) => {
-  const { docs } = await db.collection('categories').get()
-
-  const result = docs.reduce((acc: CategoriesType[], curr) => {
-    acc.push({
-      id: curr.id,
-      ...curr.data()
-    })
-    return acc
-  }, [])
-  res.status(200).json(result);
+  try {
+    // TODO add Type
+    const { docs } = await db.collection('categories').get()
+    // {[key CategoryKey]: Category}
+    const result = docs.reduce((acc, curr) => {
+      const data = curr.data()
+      acc = {
+        ...acc,
+        [data.pathname] : {
+          id: curr.id,
+          ...data
+        }
+      }
+      return acc
+    }, {})
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500)
+  }
 }
