@@ -1,13 +1,14 @@
 import { GithubAuthProvider, signOut, signInWithPopup, User, onIdTokenChanged } from "firebase/auth";
-import { auth } from "../../firebaseClient";
+import { auth } from "@/firebase/client";
 import { useState, createContext, useContext, useEffect } from "react";
 import type { PropsWithChildren } from 'react'
 import nookies from 'nookies'
-
+import { responseAPI, oneHourUrl } from 'lib/api'
 // Firebase Github Auth 
 interface Auth {
   token?: string;
   user?: User;
+  favor?: any
 }
 interface AuthContextType extends Auth {
   login: () => void;
@@ -20,6 +21,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   const [error, setError] = useState(null);
   const [token, setToken] = useState<string | undefined>();
   const [user, setUser] = useState<User>();
+  const [favor, setFavors] = useState();
 
   const setupAuth = ({token, user }: Auth) => {
     nookies.set(undefined, "token", token ?? "", {})
@@ -37,6 +39,16 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       setupAuth({ token:idToken, user })
     }) 
   }, [])
+
+  useEffect(() => {
+    if(user?.uid) {
+      responseAPI(oneHourUrl.GET_USER_FAVORITES(user?.uid))
+        .then((response:any) => {
+          const [data] = response
+          setFavors(data)
+        })
+    }
+  }, [user])
 
   const login = async () => {
     const provider = new GithubAuthProvider();
@@ -80,7 +92,8 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       token, 
       login,
       logout,
-      user
+      user,
+      favor
     }}>
       {children}
     </AuthContext.Provider>

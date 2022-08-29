@@ -4,6 +4,7 @@ import Link from 'next/link';
 import SideDropdown from '@components/common/side-dropdown';
 import { useResponsiveContext } from '@components/Layout/ResponsiveContext';
 import { Close, Logo } from '@components/common/Icon';
+import { useAuth } from '@components/auth/AuthProvide';
 
 interface Category {
   name: string;
@@ -11,6 +12,7 @@ interface Category {
 }
 export default function Sidebar({}) {
   const { IsMobileScreen, isMenuOpen, setIsMenuOpen } = useResponsiveContext();
+  const { user } = useAuth(); 
   const categories: Category[] = [
     { name: '프론트엔드', params: '/categories/frontend' },
     { name: '서버/백엔드', params: '/categories/backend' },
@@ -19,7 +21,7 @@ export default function Sidebar({}) {
     { name: '데브옵스', params: '/categories/devops' },
   ];
   const reviewCategories: Category[] = [
-    { name: '북마크', params: '/bookmark' },
+    { name: '북마크', params: `/bookmark/${user?.uid}`},
     { name: '연습문제 풀기', params: '/dev-quiz' },
   ];
 

@@ -15,17 +15,18 @@ import { TextArea } from '@components/Form';
 import TagList from '@components/common/tag-list';
 import SmallHeader from '@components/common/small-header';
 import Select from '@components/common/Select';
-import { categoryBanner, tagByCategory } from 'lib/utils';
+import { tagByCategory } from 'lib/utils';
 import Modal from '@components/common/modal';
 import { useRouter } from 'next/router';
+import { responseAPI, oneHourUrl } from 'lib/api'
 
 const WriteQuestion: NextPage = () => {
   const router = useRouter();
   const [category_id, setCategory_id] = useState<string>('');
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isPost, setIsPost] = useState(false);
-  const [categoryData, setCategoryData] = useState<Category[]>([]);
+  const [categoryOptions, setCategoryOptions] = useState<CategoryOptionType[]>([]);
 
   const titleRef = useRef<HTMLTextAreaElement | null>(null);
   const contentRef = useRef<HTMLTextAreaElement | null>(null);
@@ -34,17 +35,23 @@ const WriteQuestion: NextPage = () => {
     FIREBASE 연결하여 categories 데이터 불러옴
   */ 
   const fetchCategories = useCallback(async () => {
-    try {
-      const res = await fetch('/api/categories')
-      const data =  await res.json();
-      setCategoryData(data);
-    } catch (err) {
-      return err;
+    // TODO endpoint path 정리
+    const [response, error] = await responseAPI(oneHourUrl.GET_CATEGORY)
+    if(!error) {
+      const options = response.map((op:CategoryValue) => ({
+        label: op.name,
+        value: op.pathname
+      }))
+      setCategoryOptions(options);
     }
   }, []);
 
-  const categories = Object.keys(categoryBanner);
-  const tagList = useMemo(() => tagByCategory[category_id as CategoryKey], [category_id]);
+  const fetchTags = useCallback(async() => {
+    const [response, error] = await responseAPI(oneHourUrl.GET_TAGS)
+    console.log(response, error)
+  }, []);
+
+  // const tagList = useMemo(() => tagByCategory[category_id as CategoryKey], [category_id]);
 
   const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     setCategory_id(e.target.value);
@@ -88,6 +95,7 @@ const WriteQuestion: NextPage = () => {
 
   useEffect(() => {
     fetchCategories();
+    fetchTags();
   }, []);
 
   return (
@@ -117,7 +125,7 @@ const WriteQuestion: NextPage = () => {
               background: `var(--color-blue) url('/assets/images/sidebar/arrow.svg') no-repeat right 17px center`,
             }}
             onChange={handleSelect}
-            options={categories}
+            options={categoryOptions}
           />
           {/* title */}
           <TextArea
@@ -153,9 +161,9 @@ const WriteQuestion: NextPage = () => {
               <p className={`mb-[16px] text-${tags.length !== 0 ? 'white' : 'error'} `}>
                 관련된 태그를 선택해주세요. (최소 1개)
               </p>
-              <div className="tag--list mb-[42px]">
+              {/* <div className="tag--list mb-[42px]">
                 <TagList value={tagList} setTags={setTags} />
-              </div>
+              </div> */}
             </>
           )}
         </div>

@@ -1,8 +1,10 @@
 import React from 'react';
 
+
+
 interface SelectForwardRefProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   className?: string;
-  options: string[];
+  options: CategoryOptionType[];
   placeholder: string;
 }
 
@@ -13,9 +15,7 @@ function Select(props: SelectForwardRefProps, ref: React.ForwardedRef<HTMLSelect
         {props.placeholder}
       </option>
       {props.options?.map((data, i) => (
-        <option value={data} key={i}>
-          {data}
-        </option>
+        <option label={data.label} value={data.value} key={i} />
       ))}
     </select>
   );

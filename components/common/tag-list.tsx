@@ -3,21 +3,21 @@ import ArrowIcon from './arrow-icon';
 import Tag from './tag';
 
 interface Props {
-  value: string[];
+  tags: Tag[];
   // 바깥으로 선택된 태그 리스트 배열을 빼려고 setState 함수를
   // props로 추가했습니다. by 디노
-  setTags?: Dispatch<SetStateAction<string[]>>;
+  setTags?: Dispatch<SetStateAction<Tag[]>>;
 }
 
-const TagList = ({ value, setTags }: Props) => {
-  const [selectedTag, setSelectedTag] = useState<string[]>([]);
+const TagList = ({ tags, setTags }: Props) => {
+  const [selectedTag, setSelectedTag] = useState<Tag[]>([]);
   const [isFold, setIsFold] = useState(true);
 
   const onToggleFold = useCallback(() => setIsFold((p) => !p), [setIsFold]);
 
-  const onClickTag = (tag: string) => {
+  const onClickTag = (tag: Tag) => {
     setSelectedTag((prev) => (prev.includes(tag) ? prev.filter((v) => v !== tag) : [...prev, tag]));
-    setTags ? setTags((prev: string[]) => (prev.includes(tag) ? prev.filter((v) => v !== tag) : [...prev, tag])) : [];
+    setTags ? setTags((prev: Tag[]) => (prev.includes(tag) ? prev.filter((v) => v !== tag) : [...prev, tag])) : [];
   };
 
   const onClickAll = () => {
@@ -26,7 +26,7 @@ const TagList = ({ value, setTags }: Props) => {
 
   useEffect(() => {
     setSelectedTag([]);
-  }, [value]);
+  }, [tags]);
 
   return (
     <div className="w-full flex justify-between">
@@ -35,8 +35,8 @@ const TagList = ({ value, setTags }: Props) => {
         style={{ width: 'calc(100% - 47px)' }}
       >
         <Tag onClickTag={onClickAll} content="전체확인" isNotTag id="all" isChecked={selectedTag.length === 0} />
-        {value.map((v, i) => (
-          <Tag onClickTag={onClickTag} content={v} key={i} id={v} isChecked={selectedTag.includes(v)} />
+        {tags.map((tag, i) => (
+          <Tag onClickTag={() => onClickTag(tag)} content={tag.name} key={i} id={tag.id} isChecked={selectedTag.includes(tag)} />
         ))}
       </section>
       <button
