@@ -1,21 +1,21 @@
+import { useAuth } from '@components/auth/AuthProvide';
 import { Card } from '@mui/material';
 import { useQuestionCard } from 'lib/hooks';
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import ArrowIcon from './arrow-icon';
 import Bookmark from './bookmark';
 import MiniTag from './mini-tag';
 
-interface Props {
-  id: number;
-  tags: string[];
-  title: string;
-  description: string;
-  isBookmark: boolean;
-  category?: string;
-}
-
-const QuestionCard = ({ description, isBookmark, tags, title, id }: Props) => {
+const QuestionCard = ({ description, tags = [], title, id }: QuestionValue) => {
   const { onToggleBookmark, onToggleShow, show } = useQuestionCard();
+  const { favor, user } = useAuth()
+  const [isBookmark, setIsBookmark] = useState(false)
+  
+  useEffect(() => {
+    favor?.bookmarks.forEach((bookmark) => {
+      setIsBookmark(bookmark.id === id)
+    })  
+  }, [id])
 
   return (
     <Card
@@ -29,11 +29,11 @@ const QuestionCard = ({ description, isBookmark, tags, title, id }: Props) => {
     >
       <section className="flex justify-between">
         <p className="text-white font-bold text-[24px]">{title}</p>
-        <Bookmark isChecked={isBookmark} onClick={() => onToggleBookmark(id)} />
+        <Bookmark isChecked={isBookmark} onClick={() => onToggleBookmark(id, user!.uid)} />
       </section>
       <section className="my-[14px] flex gap-[9px]">
-        {tags.map((v, i) => (
-          <MiniTag content={v} key={i} />
+        {tags.map((tag, i) => (
+          <MiniTag content={tag.name} key={tag.id} />
         ))}
       </section>
       <section className="relative">

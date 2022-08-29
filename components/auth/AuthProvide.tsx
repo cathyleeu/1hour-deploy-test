@@ -8,7 +8,13 @@ import { responseAPI, oneHourUrl } from 'lib/api'
 interface Auth {
   token?: string;
   user?: User;
-  favor?: any
+  favor?: AuthFavor;
+}
+
+// FIXME TYPE
+interface AuthFavor {
+  bookmarks: any[]
+  likes: any[]
 }
 interface AuthContextType extends Auth {
   login: () => void;

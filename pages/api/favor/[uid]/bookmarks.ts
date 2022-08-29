@@ -9,13 +9,14 @@ export default async (
   try {
     const doc = await db.collection('favor').doc(uid as string).get()
     const { bookmarks } = doc.data() as any
-
+    console.log(bookmarks)
     if(!doc.exists) {
       res.status(204).json([]);
     }
 
-    const result = await bookmarks.reduce(async(acc:any, book:any) => {
+    const result = await bookmarks.reduce(async(acc:any[], book:any) => {
       const booked = await book.ref.get()
+      console.log(booked)
       acc.push(booked.data())
       return acc
     }, [])
