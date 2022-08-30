@@ -75,10 +75,9 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       }
 
     } catch (error) {
-      console.log(error);
-      if(error?.message) {
-        setError(error?.message);
-      }
+      // FIXME : Error handling
+      setError(error);
+      throw new Error("Logout Error");
     } finally {
       location.reload()
     }
