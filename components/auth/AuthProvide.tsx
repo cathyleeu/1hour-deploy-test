@@ -76,7 +76,6 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
     } catch (error) {
       setError('Login Error');
-      throw new Error(error);
     } finally {
       location.reload()
     }
