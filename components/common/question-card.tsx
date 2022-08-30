@@ -7,15 +7,8 @@ import Bookmark from './bookmark';
 import MiniTag from './mini-tag';
 
 const QuestionCard = ({ description, tags = [], title, id }: QuestionValue) => {
-  const { onToggleBookmark, onToggleShow, show } = useQuestionCard();
-  const { favor, user } = useAuth()
-  const [isBookmark, setIsBookmark] = useState(false)
-  
-  useEffect(() => {
-    favor?.bookmarks.forEach((bookmark) => {
-      setIsBookmark(bookmark.id === id)
-    })  
-  }, [id])
+  const { onToggleBookmark, onToggleShow, show, isBookmark } = useQuestionCard(id);
+  const { user } = useAuth()
 
   return (
     <Card

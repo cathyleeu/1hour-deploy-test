@@ -1,21 +1,47 @@
-import { useState } from 'react';
-import { doc, updateDoc, getDoc } from 'firebase/firestore'
+import { useState, useEffect } from 'react';
+import { doc, updateDoc, getDoc, DocumentReference } from 'firebase/firestore'
 import { db } from '@/firebase/client'
+import { useAuth } from '@components/auth/AuthProvide';
 
-const useQuestionCard = () => {
+type FavorItemValue = {
+  id: string;
+  ref: DocumentReference;
+}
+interface FavorDocs {
+  bookmarks: FavorItemValue[];
+  likes: FavorItemValue[];
+}
+const useQuestionCard = (id:string) => {
   const [show, setShow] = useState(false);
-
+  const { user } = useAuth()
+  const [isBookmark, setIsBookmark] = useState(false)
   const onToggleShow = () => setShow((p) => !p);
 
-  const onToggleBookmark = async (id: string, uid: string) => {
-    //TODO: fetch data
-    // TOGGLE_BOOKMARK
-    console.log('onToggleBookmark')
+  useEffect(() => {
+    if(user?.uid) {
+      getFavor(user?.uid)
+        .then(({bookmarks}) => {
+          const has = bookmarks.find((bookmark:FavorItemValue) => bookmark.id === id)
+          setIsBookmark(Boolean(has))
+        }) 
+    }
+  }, [user])
+
+  async function getFavor(uid:string):Promise<FavorDocs> {
     const ref = doc(db, "favor", uid)
-    const docsnap = await getDoc(ref)
-    const { bookmarks } = docsnap.data() as any
-    const has = bookmarks.find((bookmark:any) => bookmark.id === id)
+    const docsnap = await getDoc(ref) 
+    return {
+      ...docsnap.data() as FavorDocs
+    }
+  }
+  const onToggleBookmark = async (id: string, uid: string) => {
+    const ref = doc(db, "favor", uid)
+    const { bookmarks } = await getFavor(uid)
+    const has = bookmarks.find((bookmark:FavorItemValue) => bookmark.id === id)
+    // FIXME : add notice
+    // TODO: add plus bookmarks num
     if(!has) {
+      setIsBookmark(true)
       await updateDoc(ref, {
         bookmarks: [
           ...bookmarks,
@@ -23,13 +49,13 @@ const useQuestionCard = () => {
         ]
       })
     } else {
+      setIsBookmark(false)
       await updateDoc(ref, {
-        bookmarks: bookmarks.filter((bookmark:any) => bookmark.id !== id)
+        bookmarks: bookmarks.filter((bookmark:FavorItemValue) => bookmark.id !== id)
       })
     }
-    console.log(bookmarks)
   };
-  return { show, onToggleShow, onToggleBookmark };
+  return { show, onToggleShow, onToggleBookmark, isBookmark };
 };
 
 export default useQuestionCard;

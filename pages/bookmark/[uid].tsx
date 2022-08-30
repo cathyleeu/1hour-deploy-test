@@ -21,7 +21,7 @@ const Bookmark: NextPage<Props> = ({questions}) => {
       </section>
       <div className="flex flex-col gap-7 mb-40">
         {questions.map((data, id) => (
-          <QuestionCard key={id} {...data} />
+          <QuestionCard key={data.id} {...data} />
         ))}
       </div>
     </main>
@@ -34,6 +34,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
   const token = await verifyIdToken(cookies.token);
   const { uid } = context.query;
+  
   if (!token) {
     return {
       redirect: {
@@ -48,8 +49,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      ids, 
-      questions
+      ids: ids ?? [], 
+      questions: questions ?? [] 
     },
   };
 };
