@@ -24,7 +24,7 @@ interface AuthContextType extends Auth {
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<null | string>(null);
   const [token, setToken] = useState<string | undefined>();
   const [user, setUser] = useState<User>();
   const [favor, setFavors] = useState();
@@ -75,9 +75,8 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       }
 
     } catch (error) {
-      // FIXME : Error handling
-      setError(error);
-      throw new Error("Logout Error");
+      setError('Login Error');
+      throw new Error(error);
     } finally {
       location.reload()
     }
