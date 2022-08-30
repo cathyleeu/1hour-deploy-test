@@ -25,4 +25,5 @@ type TagValue = {
 interface Tag {
   id: string;
   name: string;
+  categoryId?: string;
 }

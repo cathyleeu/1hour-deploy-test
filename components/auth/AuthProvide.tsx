@@ -74,7 +74,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
         throw new Error("Could not complete signup");
       }
 
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
       setError(error.message);;
     } finally {
