@@ -11,23 +11,13 @@ const MAX_MINUTES = 7;
 const MIN_QUIZ = 3;
 const MAX_QUIZ = 10;
 
-const fake = [
-  'html',
-  'jamstack',
-  'javascript',
-  'nestjs',
-  'aspnet',
-  'big-data',
-  'bots',
-  'reactjs',
-  'c',
-  'clojure',
-  'cms',
-  'dart',
-  'django',
-];
 
-const SetupQuizView = ({ auth }: withAuthProps) => {
+
+interface Props extends withAuthProps{
+  tags: Tag[]
+}
+
+const SetupQuizView = ({ auth, tags }: Props) => {
   const { setTimer, updatePhase, errorMessage, setError, generateQuestion, setQuizNum, setCurrentStage } = useQuiz();
   const time = useInput(MIN_MINUTES);
   const quiz = useInput(MIN_QUIZ);
@@ -62,7 +52,7 @@ const SetupQuizView = ({ auth }: withAuthProps) => {
         <IconText src="/assets/images/quiz/bulb.png" className="mb-5">
           <p className="font-bold text-sm md:text-xl">아래의 태그에 속한 질문을 랜덤으로 풀어보세요.</p>
         </IconText>
-        {/* <TagList value={fake} /> */}
+        <TagList tags={tags} />
       </section>
 
       <section className="flex justify-end relative">

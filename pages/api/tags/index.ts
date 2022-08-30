@@ -1,42 +1,28 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { db } from '@/firebase/admin';
 
-interface TagType {
-  id: string;
-  name: string;
-  [key:string]: any
-}
-
 export default async (
   req: NextApiRequest, 
   res: NextApiResponse
 ) => {
-  // 
-  // console.log(req.query.category)
-  // try {
-    
+  try {
     const { docs } = await db.collection('tags').get()
-    // categoryId
-    // console.log(docs[0].data())
-    const result = docs.reduce(async (acc: any, curr) => {
-      // const tag = await db.collection('tags').doc(curr.id).collection('tag').get()
-      // tag
-      // const tag = curr.get('tag')
-      acc = {
-        ...acc,
-        [curr.id]: {
-          ...curr.data(),
-          // tag: tag
-        }
-      }
-      return acc
-    }, {})
-    // console.log(result);
-    
+    const result = await docs.reduce(async (init:any, curr) => {
+      const { docs:subDocs } = await db.collection('tags').doc(curr.id).collection('tag').get()
+      const tags = subDocs.reduce((acc:TagItemValue[], doc) => {
+        acc.push({
+          id: doc.id,
+          ...doc.data(),
+          categoryId: curr.id
+        })
+        return acc
+      }, []) 
+      let res = await init
+      res = [...res, ...tags]
+      return res
+    }, [])
     res.status(200).json(result);
-
-    // TODO get tag list by id
-  // } catch (error) {
-    // res.status(500)
-  // } 
+  } catch (error) {
+    res.status(500).end()
+  } 
 }
