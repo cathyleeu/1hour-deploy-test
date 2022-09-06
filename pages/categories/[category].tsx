@@ -1,10 +1,11 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { GetStaticPaths, GetStaticProps, GetServerSideProps, NextPage } from 'next';
 import CategoryBanner from '@components/category/banner';
 import TagList from '@components/common/tag-list';
 import SmallHeader from '@components/common/small-header';
 import QuestionCard from '@components/common/question-card';
 import { responseAPI, oneHourUrl } from 'lib/api'
 import { ParsedUrlQuery } from 'querystring'
+// import { getServerSideProps } from 'pages/authenticated';
 
 interface Props {
   data: CategoryValue;
@@ -36,19 +37,20 @@ const Category: NextPage<Props> = ({data, tags, questions}) => {
 
 export default Category;
 
-export const getStaticPaths: GetStaticPaths = async() => {
-  const categoryPage = ['frontend', 'backend', 'devops', 'mobile', 'datascience'];
-  return {
-    paths: categoryPage.map((v) => ({ params: { category: v } })),
-    fallback: false,
-  };
-};
+// export const getStaticPaths: GetStaticPaths = async() => {
+//   const categoryPage = ['frontend', 'backend', 'devops', 'mobile', 'datascience'];
+//   return {
+//     paths: categoryPage.map((v) => ({ params: { category: v } })),
+//     fallback: false,
+//   };
+// };
 
 interface IPrams extends ParsedUrlQuery {
   category: CategoryKey
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { category } = params as IPrams
   
   const [categoryResponse, categoriesError] = await responseAPI(oneHourUrl.GET_CATEGORY)
@@ -66,8 +68,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       params,
       data,
-      tags,
-      questions
+      tags: tags ? tags : [],
+      questions: questions ? questions : []
     },
   };
 };

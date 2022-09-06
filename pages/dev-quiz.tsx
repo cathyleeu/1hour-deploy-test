@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const [tags] = await responseAPI(oneHourUrl.GET_TAGS)
   return {
     props : {
-      tags
+      tags: tags ? tags : []
     }
   }
 }
