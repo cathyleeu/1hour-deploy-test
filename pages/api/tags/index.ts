@@ -8,13 +8,14 @@ export default async (
   try {
     const { docs } = await db.collection('tags').get()
     const result = await docs.reduce(async (init:any, curr) => {
-      const { docs:subDocs } = await db.collection('tags').doc(curr.id).collection('tag').get()
+      const { docs:subDocs } = await db.collection('tags').doc(curr.id).collection('tag').get()     
       const tags = subDocs.reduce((acc:TagItemValue[], doc) => {
-        acc.push({
+        const item = {
           id: doc.id,
+          categoryId: curr.id,
           ...doc.data(),
-          categoryId: curr.id
-        })
+        } as TagItemValue
+        acc.push(item)
         return acc
       }, []) 
       let res = await init
